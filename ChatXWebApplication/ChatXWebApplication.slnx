@@ -1,1 +1,15 @@
-<Solution />
+<Solution>
+  <Folder Name="/src/" />
+  <Folder Name="/src/Application/">
+    <Project Path="Application_Layer/Application_Layer.csproj" Id="50cd1a58-809e-4641-9eb8-34d8f836e16f" />
+  </Folder>
+  <Folder Name="/src/Domain/">
+    <Project Path="Core_Layer/Core_Layer.csproj" Id="2937fe0e-1cc1-48ca-88df-4415c1697298" />
+  </Folder>
+  <Folder Name="/src/Infrastructure/">
+    <Project Path="Infrastructure_Layer/Infrastructure_Layer.csproj" Id="a1c040cc-fa75-4a43-a51d-f5974fe2d16b" />
+  </Folder>
+  <Folder Name="/src/Presentation/">
+    <Project Path="ChatXWebApp/ChatXWebApp.csproj" Id="18a755c4-25b9-47f5-b4c8-f82076ce7035" />
+  </Folder>
+</Solution>
