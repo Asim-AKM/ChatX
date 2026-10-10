@@ -1,4 +1,5 @@
 using ChatXWebApp.Components;
+using Infrastructure_Layer.Data.InfraDI_S;
 
 namespace ChatXWebApp
 {
@@ -11,6 +12,7 @@ namespace ChatXWebApp
             // Add services to the container.
             builder.Services.AddRazorComponents()
                 .AddInteractiveServerComponents();
+            builder.Services.InfraDI(builder.Configuration);
 
             var app = builder.Build();
 
