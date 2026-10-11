@@ -1,4 +1,6 @@
 using ChatXWebApp.Components;
+using Application_Layer.DI_Registration;
+using Infrastructure_Layer.DI_Registration;
 
 namespace ChatXWebApp
 {
@@ -11,6 +13,9 @@ namespace ChatXWebApp
             // Add services to the container.
             builder.Services.AddRazorComponents()
                 .AddInteractiveServerComponents();
+            builder.Services.AddApplicationServices()
+                .AddInfrastructureServices();
+
 
             var app = builder.Build();
 
