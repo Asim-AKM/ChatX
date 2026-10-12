@@ -23,4 +23,8 @@
     <ProjectReference Include="..\Core_Layer\Core_Layer.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Persistence\Migrations\" />
+  </ItemGroup>
+
 </Project>

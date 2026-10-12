@@ -13,7 +13,7 @@ namespace ChatXWebApp
             // Add services to the container.
             builder.Services.AddRazorComponents()
                 .AddInteractiveServerComponents();
-            builder.Services.InfraDI(builder.Configuration);
+            builder.Services.AddInfrastructureServices(builder.Configuration);
 
             var app = builder.Build();
 
