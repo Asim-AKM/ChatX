@@ -11,6 +11,8 @@ namespace Infrastructure_Layer.Data.ApplicationDbContext
         public DbSet<Notifications> Notifications { get; set; }
         public DbSet<MessageReceipt> MessageReceipts { get; set; }
         public DbSet<ConversationMember> ConversationMembers { get; set; }
+        public DbSet<Message> Messages { get; set; }
+        public DbSet<Conversation> Conversations { get; set; }
 
     }
 }

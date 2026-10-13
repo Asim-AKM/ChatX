@@ -9,7 +9,6 @@ namespace ChatXWebApp
         {
             var builder = WebApplication.CreateBuilder(args);
 
-             builder.Configuration.GetConnectionString("ChatXWebApp_Conn"); //database con sting daai
             // Add services to the container.
             builder.Services.AddRazorComponents()
                 .AddInteractiveServerComponents();
