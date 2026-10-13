@@ -1,0 +1,144 @@
+﻿@page "/"
+@page "/Home"
+
+<PageTitle>ChatX - Home</PageTitle>
+
+<div class="home-container">
+
+    <!-- Header -->
+    <header class="home-header">
+        <a href="/" class="home-logo">
+            <span class="logo-icon">C</span>
+            <span>ChatX</span>
+        </a>
+
+        <div class="header-actions">
+            <a href="/login" class="login-button">
+                Login
+            </a>
+
+            <a href="/register" class="register-button">
+                Get Started
+            </a>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+
+        <div class="hero-content">
+
+            <span class="hero-badge">
+                Your conversations, simplified
+            </span>
+
+            <h1>
+                Connect with people.
+                <span>Anywhere, anytime.</span>
+            </h1>
+
+            <p>
+                Welcome to ChatX, your space to chat, share ideas,
+                and stay connected with the people who matter most.
+                Simple, fast, and designed for you.
+            </p>
+
+            <div class="hero-actions">
+                <a href="/login" class="primary-button">
+                    Login to ChatX
+                    <span aria-hidden="true">→</span>
+                </a>
+
+                <a href="/register" class="secondary-button">
+                    Create an Account
+                </a>
+            </div>
+
+            <div class="hero-note">
+                <span class="online-dot"></span>
+                A better way to stay connected
+            </div>
+
+        </div>
+
+        <!-- Chat Preview -->
+        <div class="chat-preview">
+
+            <div class="preview-header">
+                <div class="preview-avatar">A</div>
+
+                <div class="preview-user">
+                    <strong>Alex Morgan</strong>
+                    <span>Online</span>
+                </div>
+
+                <span class="preview-menu">•••</span>
+            </div>
+
+            <div class="preview-messages">
+
+                <div class="message received">
+                    Hey! How are you doing?
+                    <small>10:30 AM</small>
+                </div>
+
+                <div class="message sent">
+                    I'm doing great! How about you?
+                    <small>10:31 AM</small>
+                </div>
+
+                <div class="message received">
+                    Pretty good! Glad we're connected.
+                    <small>10:31 AM</small>
+                </div>
+
+            </div>
+
+            <div class="preview-input">
+                <span>Type your message...</span>
+                <span class="send-icon">➤</span>
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- Features -->
+    <section class="features-section">
+
+        <div class="section-heading">
+            <h2>Everything you need to connect</h2>
+            <p>All your conversations in one simple place.</p>
+        </div>
+
+        <div class="features-grid">
+
+            <div class="feature-card">
+                <div class="feature-icon">💬</div>
+                <h3>Instant Messaging</h3>
+                <p>Stay in touch with friends through simple conversations.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">👥</div>
+                <h3>Your Contacts</h3>
+                <p>Keep the people who matter close and easy to reach.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">🔒</div>
+                <h3>Privacy Matters</h3>
+                <p>Build your communication experience with privacy in mind.</p>
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- Footer -->
+    <footer class="home-footer">
+        <span>© @DateTime.Now.Year ChatX. All rights reserved.</span>
+        <span>Connect. Chat. Share.</span>
+    </footer>
+
+</div>
