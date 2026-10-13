@@ -6,6 +6,7 @@ namespace Infrastructure_Layer.Data.ApplicationDbContext
     public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(options)
     {
 
+
         public DbSet<User> Users { get; set; }
         public DbSet<UserConnection> UserConnections { get; set; }
         public DbSet<Notifications> Notifications { get; set; }
@@ -15,5 +16,5 @@ namespace Infrastructure_Layer.Data.ApplicationDbContext
         public DbSet<Conversation> Conversations { get; set; }
 
     }
-}
 
+}
