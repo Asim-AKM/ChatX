@@ -1,4 +1,5 @@
 using ChatXWebApp.Components;
+using ChatXWebApp.Extension;
 using Infrastructure_Layer.Data.InfraDI_S;
 
 namespace ChatXWebApp
@@ -9,7 +10,8 @@ namespace ChatXWebApp
         {
             var builder = WebApplication.CreateBuilder(args);
 
-             builder.Configuration.GetConnectionString("ChatXWebApp_Conn"); //database con sting daai
+
+            builder.Services.DbContextConfig(builder.Configuration);
             // Add services to the container.
             builder.Services.AddRazorComponents()
                 .AddInteractiveServerComponents();
