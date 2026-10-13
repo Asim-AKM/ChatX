@@ -23,4 +23,8 @@
     <ProjectReference Include="..\Infrastructure_Layer\Infrastructure_Layer.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Components\MyComponents\" />
+  </ItemGroup>
+
 </Project>

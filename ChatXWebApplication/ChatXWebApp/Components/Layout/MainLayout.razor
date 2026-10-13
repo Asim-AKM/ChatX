@@ -1,28 +1,19 @@
 ﻿@inherits LayoutComponentBase
 
-<div class="chatx-layout">
-
-    <!-- Left Sidebar -->
-    <aside class="chatx-sidebar">
+<div class="page">
+    <div class="sidebar">
         <NavMenu />
-    </aside>
+    </div>
 
-    <!-- Main Application Area -->
-    <main class="chatx-main">
-
-        <!-- Current Page Content -->
-        @Body
-
+    <main>
+        <article class="content">
+            @Body
+        </article>
     </main>
-
 </div>
 
-<!-- Blazor Error UI -->
 <div id="blazor-error-ui" data-nosnippet>
     An unhandled error has occurred.
     <a href="." class="reload">Reload</a>
-    <button type="button" class="dismiss"
-            onclick="this.parentElement.style.display='none'">
-        Close
-    </button>
+    <span class="dismiss">🗙</span>
 </div>

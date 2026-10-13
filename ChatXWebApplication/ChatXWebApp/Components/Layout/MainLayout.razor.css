@@ -1,71 +1,101 @@
-/* Main application layout */
-.chatx-layout {
-    display: flex;
-    width: 100%;
-    height: 100vh;
-    overflow: hidden;
-    background-color: #f5f7fb;
-    font-family: "Segoe UI", Arial, sans-serif;
-}
+/* ============================================================
+   ChatX — MainLayout
+   ============================================================ */
 
-/* Left sidebar container */
-.chatx-sidebar {
-    width: 260px;
-    min-width: 260px;
-    height: 100%;
-    background-color: #111827;
-    color: #f9fafb;
+.page {
+    position: relative;
     display: flex;
     flex-direction: column;
-    overflow-y: auto;
+    min-height: 100vh;
 }
 
-/* Main page area */
-.chatx-main {
+main {
     flex: 1;
+    display: flex;
+    flex-direction: column;
+    background: #1a1d29;
     min-width: 0;
-    height: 100%;
-    overflow-y: auto;
-    background-color: #f5f7fb;
 }
 
-/* Blazor error notification */
+.sidebar {
+    background: linear-gradient(180deg, #1e2235 0%, #14172b 60%, #0f1220 100%);
+    border-right: 1px solid rgba(255, 255, 255, 0.06);
+    display: flex;
+    flex-direction: column;
+    box-shadow: 2px 0 20px rgba(0, 0, 0, 0.3);
+}
+
+/* No padding — pages handle their own */
+article.content {
+    flex: 1;
+    padding: 0;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+/* ============================================================
+   Mobile — stack vertically
+   ============================================================ */
+@media (max-width: 640.98px) {
+    .page {
+        flex-direction: column;
+    }
+}
+
+/* ============================================================
+   Wide screens — sidebar rail + main content side-by-side
+   ============================================================ */
+@media (min-width: 641px) {
+    .page {
+        flex-direction: row;
+    }
+
+    .sidebar {
+        width: 72px;
+        height: 100vh;
+        position: sticky;
+        top: 0;
+        flex-shrink: 0;
+    }
+}
+
+/* ============================================================
+   Blazor Error UI
+   ============================================================ */
 #blazor-error-ui {
-    display: none;
-    position: fixed;
+    color-scheme: light only;
+    background: #fef3c7;
+    color: #78350f;
     bottom: 0;
+    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.3);
+    box-sizing: border-box;
+    display: none;
     left: 0;
+    padding: 0.85rem 1.5rem;
+    position: fixed;
     width: 100%;
-    padding: 12px 20px;
-    background-color: #fff3cd;
-    color: #664d03;
-    border-top: 1px solid #ffecb5;
     z-index: 1000;
+    font-size: 0.9rem;
+    border-top: 2px solid #f59e0b;
 }
 
     #blazor-error-ui .reload {
-        margin-left: 10px;
-        color: #0d6efd;
+        color: #b45309;
+        font-weight: 600;
+        margin-left: 0.5rem;
     }
 
     #blazor-error-ui .dismiss {
-        float: right;
-        border: none;
-        background: transparent;
         cursor: pointer;
+        position: absolute;
+        right: 1rem;
+        top: 0.75rem;
+        font-size: 1.1rem;
+        opacity: 0.7;
+        transition: opacity 0.2s ease;
     }
 
-/* Responsive layout */
-@media (max-width: 768px) {
-    .chatx-sidebar {
-        width: 210px;
-        min-width: 210px;
-    }
-}
-
-@media (max-width: 480px) {
-    .chatx-sidebar {
-        width: 75px;
-        min-width: 75px;
-    }
-}
+        #blazor-error-ui .dismiss:hover {
+            opacity: 1;
+        }
