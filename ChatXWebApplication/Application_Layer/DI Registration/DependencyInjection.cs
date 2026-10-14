@@ -1,4 +1,7 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Application_Layer.Validators;
+using ChatX.Application.Validators;
+using FluentValidation;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Application_Layer.DI_Registration
 {
@@ -6,7 +9,9 @@ namespace Application_Layer.DI_Registration
     {
         public static IServiceCollection AddApplicationServices(this IServiceCollection services)
         {
-            // Register Application services here
+            services.AddValidatorsFromAssemblyContaining<RegisterUserValidator>();
+
+
 
             return services;
         }
