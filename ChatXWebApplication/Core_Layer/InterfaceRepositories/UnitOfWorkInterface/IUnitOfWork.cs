@@ -8,6 +8,7 @@ namespace Core_Layer.InterfaceRepositories.UnitOfWorkInterface
 {
     public interface IUnitOfWork
     {
+         IUserRepo UserRepo { get; }
         Task<int> SaveChangesAsync();
         Task ExecuteInTransactionAsync(Func<Task> operation, bool autosaveChanges = true);
     }

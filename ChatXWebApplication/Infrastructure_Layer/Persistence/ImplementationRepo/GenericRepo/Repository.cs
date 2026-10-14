@@ -1,4 +1,5 @@
-﻿using Core_Layer.InterfaceRepositories.IGenericRepo;
+﻿using Core_Layer.Entities;
+using Core_Layer.InterfaceRepositories.IGenericRepo;
 using Infrastructure_Layer.Data.ApplicationDbContext;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -13,6 +14,19 @@ namespace Infrastructure_Layer.Persistence.ImplementationRepo.GenericRepo
     {
         private readonly AppDbContext _context;
         private readonly DbSet<T> _dbSet;
+
+        public Repository(AppDbContext context)
+        {
+            _context = context;
+        }
+
+        public Repository(AppDbContext context, DbSet<T> dbSet)
+        {
+            _context = context;
+            _dbSet = dbSet;
+        }
+
+     
         public async Task<T> CreateAsync(T entities)
         {
             await _dbSet.AddAsync(entities);

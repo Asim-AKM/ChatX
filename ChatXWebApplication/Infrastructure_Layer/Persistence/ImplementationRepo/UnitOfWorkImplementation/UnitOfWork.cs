@@ -1,4 +1,5 @@
-﻿using Core_Layer.InterfaceRepositories.UnitOfWorkInterface;
+﻿using Core_Layer.InterfaceRepositories;
+using Core_Layer.InterfaceRepositories.UnitOfWorkInterface;
 using Infrastructure_Layer.Data.ApplicationDbContext;
 
 namespace Infrastructure_Layer.Persistence.ImplementationRepo.UnitOfWorkImplementation
@@ -8,11 +9,12 @@ namespace Infrastructure_Layer.Persistence.ImplementationRepo.UnitOfWorkImplemen
         private readonly AppDbContext _context;
 
 
-
+        public IUserRepo UserRepo { get; }
 
         public UnitOfWork(AppDbContext context)
         {
             _context = context;
+            UserRepo=new UserRepo(_context);
         }
         public async Task ExecuteInTransactionAsync(Func<Task> operation, bool autosaveChanges = true)
         {
