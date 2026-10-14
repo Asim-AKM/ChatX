@@ -1,0 +1,213 @@
+﻿@page "/chats"
+@layout Layout.MainLayout
+
+<div class="chatroom">
+
+    <!-- ============ LEFT PANEL: CONVERSATION LIST ============ -->
+    <aside class="conversation-panel">
+
+        <div class="panel-header">
+            <h2 class="panel-title">Messages</h2>
+            <button class="icon-btn" title="New chat">
+                <span class="bi bi-plus-lg"></span>
+            </button>
+        </div>
+
+        <div class="search-box">
+            <span class="bi bi-search search-icon"></span>
+            <input type="text" placeholder="Search conversations..." />
+        </div>
+
+        <div class="filter-tabs">
+            <button class="filter-tab active">All</button>
+            <button class="filter-tab ">Unread</button>
+            <button class="filter-tab ">Groups</button>
+        </div>
+
+        <div class="conversation-list">
+
+            <!-- Active conversation -->
+            <div class="conversation-item active">
+                <div class="conv-avatar online">SA</div>
+                <div class="conv-body">
+                    <div class="conv-top">
+                        <span class="conv-name">Sarah Ahmed</span>
+                        <span class="conv-time">2m</span>
+                    </div>
+                    <div class="conv-bottom">
+                        <span class="conv-preview">Sounds good! Let's catch up tomorrow.</span>
+                        <span class="unread-badge">3</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="conversation-item">
+                <div class="conv-avatar online">MJ</div>
+                <div class="conv-body">
+                    <div class="conv-top">
+                        <span class="conv-name">Mike Johnson</span>
+                        <span class="conv-time">15m</span>
+                    </div>
+                    <div class="conv-bottom">
+                        <span class="conv-preview">Sent the files you asked for 📎</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="conversation-item">
+                <div class="conv-avatar">DK</div>
+                <div class="conv-body">
+                    <div class="conv-top">
+                        <span class="conv-name">David Kim</span>
+                        <span class="conv-time">1h</span>
+                    </div>
+                    <div class="conv-bottom">
+                        <span class="conv-preview">Okay, see you then.</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Group conversation -->
+            <div class="conversation-item">
+                <div class="conv-avatar group">💬</div>
+                <div class="conv-body">
+                    <div class="conv-top">
+                        <span class="conv-name">Design Team</span>
+                        <span class="conv-time">3h</span>
+                    </div>
+                    <div class="conv-bottom">
+                        <span class="conv-preview"><strong>Alex:</strong> New mockups uploaded</span>
+                        <span class="unread-badge">12</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="conversation-item">
+                <div class="conv-avatar">LR</div>
+                <div class="conv-body">
+                    <div class="conv-top">
+                        <span class="conv-name">Lisa Ray</span>
+                        <span class="conv-time">Yesterday</span>
+                    </div>
+                    <div class="conv-bottom">
+                        <span class="conv-preview">Thanks for the help! 😊</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="conversation-item">
+                <div class="conv-avatar">TS</div>
+                <div class="conv-body">
+                    <div class="conv-top">
+                        <span class="conv-name">Tom Smith</span>
+                        <span class="conv-time">Yesterday</span>
+                    </div>
+                    <div class="conv-bottom">
+                        <span class="conv-preview">Hey, are you free this weekend?</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </aside>
+
+    <!-- ============ RIGHT PANEL: ACTIVE CHAT ============ -->
+    <section class="chat-panel">
+
+        <!-- Chat header -->
+        <header class="chat-header">
+            <div class="chat-user">
+                <div class="conv-avatar online">SA</div>
+                <div class="chat-user-info">
+                    <span class="chat-user-name">Sarah Ahmed</span>
+                    <span class="chat-user-status">Online</span>
+                </div>
+            </div>
+
+            <div class="chat-actions">
+                <button class="icon-btn" title="Voice call">
+                    <span class="bi bi-telephone-fill"></span>
+                </button>
+                <button class="icon-btn" title="Video call">
+                    <span class="bi bi-camera-video-fill"></span>
+                </button>
+                <button class="icon-btn" title="More">
+                    <span class="bi bi-three-dots-vertical"></span>
+                </button>
+            </div>
+        </header>
+
+        <!-- Messages -->
+        <div class="messages">
+
+            <div class="date-divider"><span>Today</span></div>
+
+            <!-- Incoming -->
+            <div class="message incoming">
+                <div class="msg-avatar">SA</div>
+                <div class="msg-content">
+                    <div class="msg-bubble">Hey! How's the new chat app coming along? 😄</div>
+                    <span class="msg-time">10:24 AM</span>
+                </div>
+            </div>
+
+            <!-- Outgoing -->
+            <div class="message outgoing">
+                <div class="msg-content">
+                    <div class="msg-bubble">Almost done! Just polishing the frontend now.</div>
+                    <span class="msg-time">10:26 AM</span>
+                </div>
+            </div>
+
+            <!-- Incoming -->
+            <div class="message incoming">
+                <div class="msg-avatar">SA</div>
+                <div class="msg-content">
+                    <div class="msg-bubble">That's awesome. Can't wait to try it! 🚀</div>
+                    <span class="msg-time">10:27 AM</span>
+                </div>
+            </div>
+
+            <!-- Outgoing -->
+            <div class="message outgoing">
+                <div class="msg-content">
+                    <div class="msg-bubble">I'll send you a preview link in a bit.</div>
+                    <span class="msg-time">10:28 AM</span>
+                </div>
+            </div>
+
+            <!-- Incoming -->
+            <div class="message incoming">
+                <div class="msg-avatar">SA</div>
+                <div class="msg-content">
+                    <div class="msg-bubble">Sounds good! Let's catch up tomorrow.</div>
+                    <span class="msg-time">10:30 AM</span>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Composer -->
+        <footer class="composer">
+            <button class="icon-btn" title="Attach">
+                <span class="bi bi-paperclip"></span>
+            </button>
+
+            <input type="text" class="composer-input" placeholder="Type a message..." />
+
+            <button class="icon-btn" title="Emoji">
+                <span class="bi bi-emoji-smile"></span>
+            </button>
+
+            <button class="send-btn" title="Send">
+                <span class="bi bi-send-fill"></span>
+            </button>
+        </footer>
+
+    </section>
+</div>
+
+@code {
+
+}
+
