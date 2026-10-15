@@ -14,23 +14,17 @@ namespace Infrastructure_Layer.Persistence.ImplementationRepo.GenericRepo
     {
         private readonly AppDbContext _context;
         private readonly DbSet<T> _dbSet;
-
         public Repository(AppDbContext context)
         {
             _context = context;
-        }
-
-        public Repository(AppDbContext context, DbSet<T> dbSet)
-        {
-            _context = context;
-            _dbSet = dbSet;
+            _dbSet = _context.Set<T>();
         }
 
      
         public async Task<T> CreateAsync(T entities)
         {
             await _dbSet.AddAsync(entities);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
             return entities;
         }
 
