@@ -1,8 +1,10 @@
-﻿using Application_Layer.DTO_s.Request;
+﻿using Application_Layer.CommanClasses.Mappers;
+using Application_Layer.DTO_s.Request;
 using Application_Layer.DTO_s.Response;
 using Application_Layer.Services.Interfaces;
 using ChatX.Application.DTOs.Request;
 using Core_Layer.Entities;
+using Core_Layer.InterfaceRepositories;
 using Core_Layer.InterfaceRepositories.IGenericRepo;
 using Core_Layer.InterfaceRepositories.UnitOfWorkInterface;
 using Core_Layer.InterfaceSecurity;
@@ -11,13 +13,16 @@ using Core_Layer.InterfaceSecurity;
 namespace Application_Layer.Services.Implementation
 {
     public class AuthService : IAuthService
-    {
+    { private readonly IUserRepo _userRepo;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IPasswordService _passwordService;
-        public AuthService(IUnitOfWork unitOfWork, IPasswordService passwordService)
+        private readonly IRepository<User> _repository;
+        public AuthService(IUnitOfWork unitOfWork, IPasswordService passwordService ,IUserRepo userRepo,IRepository<User> repository)
         {
             _unitOfWork = unitOfWork;
             _passwordService = passwordService;
+            _userRepo = userRepo;
+            _repository = repository;
         }
 
         public async Task<AuthenticationResponse> LoginUserAsync(LoginUserRequest request)
@@ -42,9 +47,25 @@ namespace Application_Layer.Services.Implementation
             };
         }
 
-        public Task<AuthenticationResponse> RegisterUserAsync(RegisterUserRequest request)
+
+        public async Task<AuthenticationResponse> RegisterUserAsync(RegisterUserRequest request)
         {
-            throw new NotImplementedException();
+            request.Password= _passwordService.HashPassword(request.Password);
+            var response = await _userRepo.GetUserByCreads(request.MapToUserDomain());
+            if(response == null)
+            {
+               await _repository.CreateAsync(response!); 
+                return new AuthenticationResponse
+                {
+                    UserId= response!.UserId,
+                    UserName=response.UserName!,
+                    ProfileImageUrl=response.ProfileImageUrl,
+                    Email=response.Email!
+                };
+            }
+            return new AuthenticationResponse();
+
         }
+
     }
 }

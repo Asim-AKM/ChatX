@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 namespace Infrastructure_Layer.Persistence.ImplementationRepo
 {
     
-    public class UserRepo : Repository<User>,IUserRepo
+    public class UserRepo : IUserRepo
     {
         private readonly AppDbContext _context;
         public UserRepo(AppDbContext context)
@@ -25,5 +25,15 @@ namespace Infrastructure_Layer.Persistence.ImplementationRepo
             var existingUser = await _context.Users.FirstOrDefaultAsync(x => x.Email == identifier || x.UserName == identifier);
             return existingUser;
         }
+        public async Task<User> GetUserByCreads(User user)
+        {
+            var response = await _context.Users.
+                  FirstOrDefaultAsync
+                  (u => u.UserName == user.UserName
+                  && u.Email == user.Email);
+
+            return response!;
+        }
+
     }
 }
