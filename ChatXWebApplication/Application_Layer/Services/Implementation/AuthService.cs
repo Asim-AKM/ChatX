@@ -13,7 +13,8 @@ using Core_Layer.InterfaceSecurity;
 namespace Application_Layer.Services.Implementation
 {
     public class AuthService : IAuthService
-    { private readonly IUserRepo _userRepo;
+    { 
+        private readonly IUserRepo _userRepo;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IPasswordService _passwordService;
         private readonly IRepository<User> _repository;
