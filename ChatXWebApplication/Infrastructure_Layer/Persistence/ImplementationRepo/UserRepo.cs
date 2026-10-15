@@ -12,13 +12,13 @@ using System.Threading.Tasks;
 
 namespace Infrastructure_Layer.Persistence.ImplementationRepo
 {
-    
-    public class UserRepo : Repository<User>,IUserRepo
+
+    public class UserRepo : Repository<User>, IUserRepo
     {
         private readonly AppDbContext _context;
-        public UserRepo(AppDbContext context)
+        public UserRepo(AppDbContext context) : base(context)
         {
-            _context=context;
+            _context = context;
         }
         public async Task<User> CheakDuplication(string identifier)
         {

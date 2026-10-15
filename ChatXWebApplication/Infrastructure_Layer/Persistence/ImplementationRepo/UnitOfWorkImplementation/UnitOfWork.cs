@@ -9,12 +9,12 @@ namespace Infrastructure_Layer.Persistence.ImplementationRepo.UnitOfWorkImplemen
         private readonly AppDbContext _context;
 
 
-        public IUserRepo UserRepo { get; }
+        public IUserRepo UserRepo { get; private set; }
 
         public UnitOfWork(AppDbContext context)
         {
             _context = context;
-            UserRepo=new UserRepo(_context);
+            UserRepo = new UserRepo(_context);
         }
         public async Task ExecuteInTransactionAsync(Func<Task> operation, bool autosaveChanges = true)
         {
