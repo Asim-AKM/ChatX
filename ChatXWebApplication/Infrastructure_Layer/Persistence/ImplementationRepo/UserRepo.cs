@@ -16,7 +16,7 @@ namespace Infrastructure_Layer.Persistence.ImplementationRepo
     public class UserRepo : Repository<User>,IUserRepo
     {
         private readonly AppDbContext _context;
-        public UserRepo(AppDbContext context)
+        public UserRepo(AppDbContext context) : base(context)
         {
             _context=context;
         }
