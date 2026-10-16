@@ -23,21 +23,9 @@ namespace Application_Layer.Services.Implementation
         public async Task<string> LoginUserAsync(LoginUserRequest request)
         {
             var user = await _unitOfWork.UserRepo.CheakDuplication(request.Identifier);
-           
+
             if (user is not null)
             {
-                if (user.Email == request.Identifier)
-                {
-                    return "Email is already in use.";
-                }
-                if (user.UserName == request.Identifier)
-                {
-                    return "Username is already in use.";
-                }
-                if (user.Contact == request.Identifier)
-                {
-                    return "Contact is already in use";
-                }
 
                 var response = _passwordService.VerifyPassword(request.Password, user.PasswordHash!);
 
@@ -45,9 +33,11 @@ namespace Application_Layer.Services.Implementation
                 {
                     return "Invalid Creadentials";
                 }
+                return "User Login Successfully";
+
             }
 
-            return "User Login Successfully";
+            return "Invalid Credentials";
         }
 
         public Task<AuthenticationResponse> RegisterUserAsync(RegisterUserRequest request)
