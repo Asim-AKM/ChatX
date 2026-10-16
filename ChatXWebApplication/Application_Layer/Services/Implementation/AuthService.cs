@@ -26,26 +26,34 @@ namespace Application_Layer.Services.Implementation
             _repository = repository;
         }
 
-        public async Task<AuthenticationResponse> LoginUserAsync(LoginUserRequest request)
+        public async Task<string> LoginUserAsync(LoginUserRequest request)
         {
             var user = await _unitOfWork.UserRepo.CheakDuplication(request.Identifier);
-            if (user == null)
+           
+            if (user is not null)
             {
-                throw new UnauthorizedAccessException("Invalid username/email or password.");
-            }
-            var response = _passwordService.VerifyPassword(request.Password, user.PasswordHash);
+                if (user.Email == request.Identifier)
+                {
+                    return "Email is already in use.";
+                }
+                if (user.UserName == request.Identifier)
+                {
+                    return "Username is already in use.";
+                }
+                if (user.Contact == request.Identifier)
+                {
+                    return "Contact is already in use";
+                }
 
-            if (!response)
-            {
-                throw new UnauthorizedAccessException("Invalid username/email or password.");
+                var response = _passwordService.VerifyPassword(request.Password, user.PasswordHash!);
+
+                if (!response)
+                {
+                    return "Invalid Creadentials";
+                }
             }
 
-            return new AuthenticationResponse
-            {
-                UserId = user.UserId,
-                UserName = user.UserName,
-                Email = user.Email
-            };
+            return "User Login Successfully";
         }
 
 

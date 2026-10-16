@@ -8,6 +8,7 @@ namespace Core_Layer.Entities
         public Guid UserId { get; set; } 
         public string ?UserName { get; set; }
         public string ?Email { get; set; }
+        public string ?Contact { get; set; }
         public string ?PasswordHash { get; set; }
         public string? ProfileImageUrl { get; set; }
         public bool IsActive { get; set; } = true;
