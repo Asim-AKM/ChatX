@@ -1,0 +1,23 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Application_Layer.DTO_s.Request;
+
+namespace Application_Layer.DTO_s.Response
+{
+    public class ConversationResponse
+    {
+        
+        
+            public Guid CanversationId { get; set; }
+
+            public List<ConversationParticipant> Participants { get; set; } = new();
+
+            public DateTime CreatedAt { get; set; }
+
+            public DateTime? LastMessageAt { get; set; }
+        }
+    }
+
