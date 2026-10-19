@@ -7,7 +7,7 @@ namespace Application_Layer.Services.Interfaces
 {
     public interface IAuthService
     {
-        Task<AuthenticationResponse> RegisterUserAsync(RegisterUserRequest request);
+        Task<string> RegisterUserAsync(RegisterUserRequest request);
         Task<string> LoginUserAsync(LoginUserRequest request);
     }
 }

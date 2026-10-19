@@ -11,5 +11,7 @@ namespace Core_Layer.InterfaceRepositories
     public interface IUserRepo : IRepository<User>
     {
         Task<User> CheakDuplication(string identifier);
+        Task<User> ExistingUser(User user);
+
     }
 }
