@@ -25,5 +25,14 @@ namespace Infrastructure_Layer.Persistence.ImplementationRepo
             var existingUser = await _context.Users.FirstOrDefaultAsync(x => x.Email == identifier || x.UserName == identifier || x.Contact == identifier);
             return existingUser;
         }
+
+        public async Task<User> ExistingUser(User user)
+        {
+    
+            var response = await _context.Users. FirstOrDefaultAsync(u => u.UserName == user.UserName|| u.Email == user.Email || u.Contact==user.Contact);
+
+            return response!;
+        
+        }
     }
 }

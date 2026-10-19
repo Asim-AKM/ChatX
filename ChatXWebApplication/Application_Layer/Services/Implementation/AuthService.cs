@@ -1,5 +1,6 @@
 ﻿using Application_Layer.DTO_s.Request;
 using Application_Layer.DTO_s.Response;
+using Application_Layer.Mappers;
 using Application_Layer.Services.Interfaces;
 using ChatX.Application.DTOs.Request;
 using Core_Layer.Entities;
@@ -40,9 +41,22 @@ namespace Application_Layer.Services.Implementation
             return "Invalid Credentials";
         }
 
-        public Task<AuthenticationResponse> RegisterUserAsync(RegisterUserRequest request)
+        public async Task<string> RegisterUserAsync(RegisterUserRequest request)
         {
-            throw new NotImplementedException();
+            var user = request.Map();
+            var existingUser = await _unitOfWork.UserRepo.ExistingUser(user);
+
+            if (existingUser == null)
+            {
+                
+            user.PasswordHash = _passwordService.HashPassword(request.Password);
+
+            await _unitOfWork.UserRepo.CreateAsync(user);
+            await _unitOfWork.SaveChangesAsync();
+
+            return "User registered successfully";
+            }
+            return "User already exists";
         }
     }
 }
