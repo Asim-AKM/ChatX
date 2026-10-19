@@ -1,0 +1,75 @@
+﻿@page "/profile"
+
+@* ==================== PROFILE PAGE SECTION ==================== *@
+<section class="screen" id="profile">
+    <div class="two-col">
+        
+        @* ---- Left Column: Edit Profile ---- *@
+        <div class="panel">
+            <div class="eyebrow">YOUR ACCOUNT</div>
+            <h2 style="margin:7px 0 22px">My profile</h2>
+            
+            <div style="display:flex;align-items:center;gap:17px;margin-bottom:25px">
+                <img class="avatar profile-photo" id="profileImage" src="assets/profile-placeholder.svg" alt="Sarah Ahmed profile photo" style="width:76px;height:76px;object-fit:cover">
+                <div>
+                    <h2 style="margin:0">Sarah Ahmed</h2>
+                    <p class="muted" style="margin:4px 0">&#64;sarah_ahmed</p>
+                    <span class="pill blue">Available</span>
+                    
+                    @* Profile photo control: the selected image is previewed and shared with the sidebar. *@
+                    <div class="profile-photo-actions">
+                        <button class="btn soft change-photo-btn" type="button" onclick="document.getElementById('profileImageInput').click()">
+                            Change photo
+                        </button>
+                        <input class="hidden" id="profileImageInput" type="file" accept="image/*" aria-label="Choose a profile photo">
+                    </div>
+                </div>
+            </div>
+
+            <div class="field">
+                <label>Display name</label>
+                <input value="Sarah Ahmed"/>
+            </div>
+            
+            <div class="field">
+                <label>Username</label>
+                <input value="sarah_ahmed"/>
+            </div>
+            
+            <div class="field">
+                <label>Email address</label>
+                <input type="email" value="sarah@example.com"/>
+            </div>
+            
+            <div class="field">
+                <label>About</label>
+                <input value="Building good things, one conversation at a time."/>
+            </div>
+            
+            <button class="btn primary" onclick="toast('Profile saved in this UI preview only')">
+                Save changes
+            </button>
+        </div>
+
+        @* ---- Right Column: Public Profile Preview ---- *@
+        <div class="panel">
+            <h2>Profile preview</h2>
+            <p class="muted">This is how other people may see your profile.</p>
+            
+            <div style="text-align:center;padding:28px 10px">
+                <img class="avatar profile-photo" id="profilePreviewImage" src="assets/profile-placeholder.svg" alt="Sarah Ahmed profile photo preview" style="width:88px;height:88px;object-fit:cover;margin:auto">
+                <h2>Sarah Ahmed</h2>
+                <p class="muted">&#64;sarah_ahmed</p>
+                <span class="pill blue">● Available</span>
+                <p style="max-width:260px;margin:18px auto">
+                    Building good things, one conversation at a time.
+                </p>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+@code {
+
+}

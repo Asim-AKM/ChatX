@@ -1,47 +1,77 @@
-﻿<div class="top-row ps-3 navbar navbar-dark">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="" title="ChatX">
-            <span class="brand-icon">💬</span>
-        </a>
-    </div>
-</div>
+﻿@* ==================== SIDEBAR / NAVIGATION ==================== *@
+<aside class="sidebar">
 
-<input type="checkbox" title="Navigation menu" class="navbar-toggler" />
-
-<div class="nav-scrollable" onclick="document.querySelector('.navbar-toggler').click()">
-    <nav class="nav flex-column">
-        <div class="nav-item">
-            <NavLink class="nav-link" href="" Match="NavLinkMatch.All" title="Chats">
-                <span class="bi bi-chat-dots-fill-nav-menu" aria-hidden="true"></span>
-                <span class="nav-label">Chats</span>
-            </NavLink>
+    <a class="brand" >
+        <button class="humberger" type="button"
+                aria-label="Toggle sidebar" aria-expanded="true">
+            <span></span><span></span><span></span>
+        </button>
+        <div>
+            <strong>ChatX</strong>
+            <small>Messages made simple</small>
         </div>
+    </a>
 
-        <div class="nav-item">
-            <NavLink class="nav-link" href="/contacts" title="Contacts">
-                <span class="bi bi-people-fill-nav-menu" aria-hidden="true"></span>
-                <span class="nav-label">Contacts</span>
-            </NavLink>
-        </div>
-
-        <div class="nav-item">
-            <NavLink class="nav-link" href="/groups" title="Groups">
-                <span class="bi bi-collection-fill-nav-menu" aria-hidden="true"></span>
-                <span class="nav-label">Groups</span>
-            </NavLink>
-        </div>
-
-        <div class="nav-item">
-            <NavLink class="nav-link" href="/settings" title="Settings">
-                <span class="bi bi-gear-fill-nav-menu" aria-hidden="true"></span>
-                <span class="nav-label">Settings</span>
-            </NavLink>
-        </div>
+    <div class="navlabel">WORKSPACE</div>
+    <nav class="nav">
+        <NavLink href="/" Match="NavLinkMatch.All">
+            <span class="ico">⌂</span>
+            <span class="navtext">Overview</span>
+        </NavLink>
+        <NavLink href="/messages">
+            <span class="ico">▤</span>
+            <span class="navtext">Messages</span>
+        </NavLink>
+        <NavLink href="/people">
+            <span class="ico">⌖</span>
+            <span class="navtext">Find people</span>
+        </NavLink>
+        <NavLink href="/notifications">
+            <span class="ico">♧</span>
+            <span class="navtext">Notifications</span>
+        </NavLink>
     </nav>
-</div>
 
-<div class="nav-footer">
-    <div class="user-profile">
-        <div class="user-avatar">JD</div>
+    <div class="navlabel">PREFERENCES</div>
+    <nav class="nav">
+        <NavLink href="/profile">
+            <span class="ico">◎</span>
+            <span class="navtext">My profile</span>
+        </NavLink>
+        <NavLink href="/settings">
+            <span class="ico">⚙</span>
+            <span class="navtext">Settings</span>
+        </NavLink>
+    </nav>
+
+    @* ---- Sidebar footer: signed-in user summary and account dropdown ---- *@
+    <div class="sidebottom">
+        <div class="user-mini">
+            <img class="avatar profile-photo"
+                 src="assets/profile-placeholder.svg"
+                 alt="Sarah Ahmed profile photo">
+            <div class="uinfo">
+                <strong>Sarah Ahmed</strong>
+                <small>Available</small>
+            </div>
+
+            <div class="dropdown sidebar-user-menu">
+                <button class="iconbtn dropdown-trigger" type="button"
+                        aria-label="Account menu" aria-expanded="false"
+                        data-dropdown-trigger>⋯</button>
+                <div class="dropdown-menu dropdown-menu-end" role="menu">
+                    <a role="menuitem" href="/profile">My profile</a>
+                    <a role="menuitem" href="/settings">Settings</a>
+                    <button role="menuitem" type="button"
+                            onclick="toast('Account details are available in your profile')">
+                        Account details
+                    </button>
+                    <button role="menuitem" type="button"
+                            onclick="toast('Sign out is a demo action; authentication is not connected')">
+                        Sign out
+                    </button>
+                </div>
+            </div>
+        </div>
     </div>
-</div>
+</aside>

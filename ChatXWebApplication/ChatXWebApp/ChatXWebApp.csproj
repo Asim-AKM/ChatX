@@ -7,6 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Components\MyComponents\**" />
+    <Content Remove="Components\MyComponents\**" />
+    <EmbeddedResource Remove="Components\MyComponents\**" />
+    <None Remove="Components\MyComponents\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -21,10 +28,6 @@
   <ItemGroup>
     <ProjectReference Include="..\Application_Layer\Application_Layer.csproj" />
     <ProjectReference Include="..\Infrastructure_Layer\Infrastructure_Layer.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Components\MyComponents\" />
   </ItemGroup>
 
 </Project>
