@@ -6,8 +6,10 @@ using System.Threading.Tasks;
 
 namespace Application_Layer.DTO_s.Response
 {
-    public class ConversationParticipant
+    public record ConversationParticipant
     {
+        
+
         public Guid UserId { get; set; }
         public string UserName { get; set; } = string.Empty;
         public string? Contact {get; set; }

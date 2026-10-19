@@ -8,7 +8,7 @@ namespace Application_Layer.Validators
         {
             public StartConversationValidator()
             {
-                RuleFor(x => x.ConversationId)
+                RuleFor(x => x.ParticipantId)
                     .NotEmpty()
                     .WithMessage("Participant ID is required.");
             }
