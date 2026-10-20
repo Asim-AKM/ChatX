@@ -7,11 +7,11 @@ using Application_Layer.DTO_s.Request;
 
 namespace Application_Layer.DTO_s.Response
 {
-    public class ConversationResponse
+    public record ConversationResponse
     {
         
         
-            public Guid CanversationId { get; set; }
+            public Guid Id { get; set; }
 
             public List<ConversationParticipant> Participants { get; set; } = new();
 
