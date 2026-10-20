@@ -1,0 +1,93 @@
+﻿@page "/people"
+
+@* ==================== SEARCH PAGE SECTION ==================== *@
+<section class="screen" id="search">
+
+    <div class="eyebrow">DISCOVER YOUR PEOPLE</div>
+
+    <div class="sectionhead" style="margin-top:6px">
+        <h2>Find people on ChatX</h2>
+        <span class="pill">Start a conversation</span>
+    </div>
+
+    <div class="searchbox" style="max-width:620px">
+        ⌖
+        <input id="userSearch" oninput="filterUsers()" placeholder="Search by username or name..." />
+    </div>
+
+    <div class="sectionhead">
+        <h2>Suggested people</h2>
+        <span class="muted" id="userCount">6 people</span>
+    </div>
+
+    @* ==================== SUGGESTED PEOPLE GRID ==================== *@
+    <div class="result-grid" id="userResults">
+
+        <div class="result" data-user="fatima khan fatima">
+            <div class="avatar green">FK</div>
+            <div class="person-info">
+                <strong>Fatima Khan</strong>
+                <small>&#64;fatima_khan · <span class="dot"></span> Online</small>
+            </div>
+            <button class="btn primary" onclick="startChat('Fatima Khan','FK')">Start Chat</button>
+        </div>
+
+        <div class="result" data-user="james miller james">
+            <div class="avatar">JM</div>
+            <div class="person-info">
+                <strong>James Miller</strong>
+                <small>&#64;jamesm · <span class="dot"></span> Online</small>
+            </div>
+            <button class="btn primary" onclick="startChat('James Miller','JM')">Start Chat</button>
+        </div>
+
+        <div class="result" data-user="daniel adams daniel">
+            <div class="avatar purple">DA</div>
+            <div class="person-info">
+                <strong>Daniel Adams</strong>
+                <small>&#64;daniel_a · Away</small>
+            </div>
+            <button class="btn primary" onclick="startChat('Daniel Adams','DA')">Start Chat</button>
+        </div>
+
+        <div class="result" data-user="ali hassan ali">
+            <div class="avatar orange">AH</div>
+            <div class="person-info">
+                <strong>Ali Hassan</strong>
+                <small>&#64;alihassan · <span class="dot"></span> Online</small>
+            </div>
+            <button class="btn primary" onclick="startChat('Ali Hassan','AH')">Start Chat</button>
+        </div>
+
+        <div class="result" data-user="ayesha noor ayesha">
+            <div class="avatar pink">AN</div>
+            <div class="person-info">
+                <strong>Ayesha Noor</strong>
+                <small>&#64;ayesha_n · Offline</small>
+            </div>
+            <button class="btn primary" onclick="startChat('Ayesha Noor','AN')">Start Chat</button>
+        </div>
+
+        <div class="result" data-user="maya ali maya">
+            <div class="avatar">MA</div>
+            <div class="person-info">
+                <strong>Maya Ali</strong>
+                <small>&#64;mayaali · <span class="dot"></span> Online</small>
+            </div>
+            <button class="btn primary" onclick="startChat('Maya Ali','MA')">Start Chat</button>
+        </div>
+
+    </div>
+
+    @* ==================== EMPTY STATE ==================== *@
+    <div class="empty hidden" id="noUsers">
+        <div class="big">⌖</div>
+        <strong>No users found</strong>
+        <p>Try another name or username.</p>
+    </div>
+
+</section>
+
+@code {
+
+}

@@ -28,6 +28,7 @@ namespace Application_Layer.Services.Implementation
             if (user is not null)
             {
 
+
                 var response = _passwordService.VerifyPassword(request.Password, user.PasswordHash!);
 
                 if (!response)

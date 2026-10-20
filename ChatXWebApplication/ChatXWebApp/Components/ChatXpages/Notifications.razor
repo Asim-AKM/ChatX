@@ -1,0 +1,59 @@
+﻿@page "/notifications"
+
+@* ==================== NOTIFICATIONS PAGE SECTION ==================== *@
+<section class="screen" id="notifications">
+
+    <div class="sectionhead" style="margin-top:0">
+        <h2>Recent activity</h2>
+        <button class="btn soft" onclick="toast('All notifications marked as read in this preview')">
+            Mark all as read
+        </button>
+    </div>
+
+    <div class="panel" style="padding:0">
+        <div class="notification">
+            <div class="noticeicon">▤</div>
+            <div style="flex:1">
+                <strong>Fatima Khan sent you a message</strong>
+                <p class="muted" style="margin:4px 0">
+                    “Are you free to review the design?”
+                </p>
+                <small class="muted">
+                    2 minutes ago · Unread
+                </small>
+            </div>
+            <span class="dot"></span>
+        </div>
+
+        <div class="notification">
+            <div class="noticeicon">◎</div>
+            <div style="flex:1">
+                <strong>James Miller is now online</strong>
+                <p class="muted" style="margin:4px 0">
+                    You can start a conversation.
+                </p>
+                <small class="muted">
+                    18 minutes ago
+                </small>
+            </div>
+        </div>
+
+        <div class="notification">
+            <div class="noticeicon">✓</div>
+            <div style="flex:1">
+                <strong>Your message was read</strong>
+                <p class="muted" style="margin:4px 0">
+                    Daniel Adams read your last message.
+                </p>
+                <small class="muted">
+                    1 hour ago
+                </small>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+@code {
+
+}
