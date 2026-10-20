@@ -24,7 +24,7 @@ namespace Infrastructure_Layer.Persistence.ImplementationRepo
         public async Task AddConversationAsync(Conversation conversation, List<ConversationMember> members)
         {
             await _db.Conversations.AddAsync(conversation);
-            await _db.ConversationMembers.Add(members);
+            await _db.ConversationMembers.AddRangeAsync(members);
             
         }
 
