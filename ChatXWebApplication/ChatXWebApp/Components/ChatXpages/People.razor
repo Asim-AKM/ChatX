@@ -1,0 +1,171 @@
+﻿@page "/people"
+@using Application_Layer.DTO_s.Response
+@using Application_Layer.Services.Interfaces
+
+<section class="screen" id="search">
+
+    <div class="eyebrow">DISCOVER YOUR PEOPLE</div>
+
+    <div class="sectionhead" style="margin-top:6px">
+        <h2>Find people on ChatX</h2>
+        <span class="pill">Start a conversation</span>
+    </div>
+
+    <div class="searchbox" style="max-width:620px">
+        ⌖
+        <input id="userSearch" @bind-value="searchTerm" placeholder="Search by username or name..." />
+        <button class="btn btn-primary" @onclick="() => GetSerchedUser(searchTerm)">Search</button>
+    </div>
+
+    <div class="sectionhead">
+        <h2>Suggested people</h2>
+        <span class="muted" id="userCount">@FilteredUsers.Count people</span>
+    </div>
+
+    @if (isLoading)
+    {
+        <p class="muted">Loading people...</p>
+    }
+    else if (FilteredUsers.Count == 0)
+    {
+        @* Empty state *@
+        <div class="empty" id="noUsers">
+            <div class="big">⌖</div>
+            <strong>No users found</strong>
+            <p>Try another name or username.</p>
+        </div>
+    }
+    else
+    {
+        <div class="result-grid" id="userResults">
+            @foreach (var user in FilteredUsers)
+            {
+                <div class="result" data-user="@($"{user.DisplayName} {user.UserName}".ToLower())">
+
+                    @* Avatar: image if available, else initials *@
+                    @if (!string.IsNullOrWhiteSpace(user.ProfileImageUrl))
+                    {
+                        <img class="avatar" src="@user.ProfileImageUrl" alt="@user.DisplayName" />
+                    }
+                    else
+                    {
+                        <div class="avatar @GetAvatarColor(user.UserID)">
+                            @GetInitials(user.DisplayName)
+                        </div>
+                    }
+
+                    <div class="person-info">
+                        <strong>@user.DisplayName</strong>
+                        <small>
+                            &#64;@user.UserName ·
+                            @if (user.IsActive == true)
+                            {
+                                <span class="dot"></span> <text>Online</text>
+                            }
+                            else
+                            {
+                                <text>Offline</text>
+                            }
+                        </small>
+                    </div>
+
+                    <button class="btn primary"
+                            @onclick="() => StartChat(user)">
+                        Start Chat
+                    </button>
+                </div>
+            }
+        </div>
+    }
+
+</section>
+
+@code {
+    [Inject] private IUserServices _userServices { get; set; } = default!;
+
+    private List<UserDataResponse> _users = new();
+    private string searchTerm = "";
+    private bool isLoading = true;
+
+    private List<UserDataResponse> FilteredUsers => _users;
+
+    protected override async Task OnInitializedAsync() => await LoadUsers();
+
+    private async Task LoadUsers()
+    {
+        isLoading = true;
+        try
+        {
+            var result = await _userServices.GetUsersAsync();
+            _users = result.Select(u => new UserDataResponse
+            {
+                UserID = u.UserID,
+                UserName = u.UserName,
+                DisplayName = u.DisplayName,
+                ProfileImageUrl = u.ProfileImageUrl,
+                IsActive = u.IsActive
+            }).ToList();
+        }
+        catch
+        {
+            _users = new();
+        }
+        finally
+        {
+            isLoading = false;
+        }
+    }
+
+    private async Task GetSerchedUser(string identifier) 
+    {
+        if (string.IsNullOrWhiteSpace(identifier))
+        {
+            await LoadUsers(); 
+            return;
+        }
+
+        isLoading = true;
+        try
+        {
+            var user = await _userServices.GetUserByUserName(identifier.Trim());
+            _users = user is null
+                ? new List<UserDataResponse>()
+                : new List<UserDataResponse> { user };
+        }
+        catch
+        {
+            _users = new();
+        }
+        finally
+        {
+            isLoading = false;
+        }
+    }
+
+    private void StartChat(UserDataResponse user)
+    {
+        Console.WriteLine($"Start chat with {user.DisplayName} (ID: {user.UserID})");
+    }
+
+    private static string GetInitials(string? name)
+    {
+        if (string.IsNullOrWhiteSpace(name)) return "?";
+        var parts = name.Trim().Split(' ', StringSplitOptions.RemoveEmptyEntries);
+        return parts.Length == 1
+            ? parts[0][..1].ToUpper()
+            : (parts[0][..1] + parts[^1][..1]).ToUpper();
+    }
+
+    private static string GetAvatarColor(Guid id)
+    {
+        var index = Math.Abs(id.GetHashCode()) % 5;
+        return index switch
+        {
+            0 => "",
+            1 => "green",
+            2 => "purple",
+            3 => "orange",
+            _ => "pink"
+        };
+    }
+}

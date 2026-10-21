@@ -1,5 +1,6 @@
 ﻿using Application_Layer.Services.Implementation;
 using Application_Layer.Services.Interfaces;
+using Application_Layer.Utililties;
 using ChatX.Application.Validators;
 using FluentValidation;
 using FluentValidation.AspNetCore;
@@ -13,7 +14,8 @@ namespace Application_Layer.DI_Registration
             .AddFluentValidationAutoValidation()
             .AddValidatorsFromAssemblyContaining<RegisterUserValidator>()
             .AddScoped<IAuthService, AuthService>()
-            .AddScoped<IUserServices, UserServices>();
+            .AddScoped<IUserServices, UserServices>()
+            .AddScoped<ImageUpload>();
     }
 
 }

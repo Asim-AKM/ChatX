@@ -17,19 +17,25 @@
             </NavLink>
         </div>
 
-        <div class="nav-item">
-            <NavLink class="nav-link" href="/contacts" title="Contacts">
-                <span class="bi bi-people-fill-nav-menu" aria-hidden="true"></span>
-                <span class="nav-label">Contacts</span>
-            </NavLink>
-        </div>
-
-        <div class="nav-item">
-            <NavLink class="nav-link" href="/groups" title="Groups">
-                <span class="bi bi-collection-fill-nav-menu" aria-hidden="true"></span>
-                <span class="nav-label">Groups</span>
-            </NavLink>
-        </div>
+    <div class="navlabel">WORKSPACE</div>
+    <nav class="nav">
+        <NavLink href="/overview" Match="NavLinkMatch.All">
+            <span class="ico">⌂</span>
+            <span class="navtext">Overview</span>
+        </NavLink>
+        <NavLink href="/messages">
+            <span class="ico">▤</span>
+            <span class="navtext">Messages</span>
+        </NavLink>
+        <NavLink href="/people">
+            <span class="ico">⌖</span>
+            <span class="navtext">Find people</span>
+        </NavLink>
+        <NavLink href="/notifications">
+            <span class="ico">♧</span>
+            <span class="navtext">Notifications</span>
+        </NavLink>
+    </nav>
 
         <div class="nav-item">
             <NavLink class="nav-link" href="/settings" title="Settings">
