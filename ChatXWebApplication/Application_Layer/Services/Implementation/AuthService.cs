@@ -2,6 +2,7 @@
 using Application_Layer.DTO_s.Response;
 using Application_Layer.Mappers;
 using Application_Layer.Services.Interfaces;
+using Application_Layer.Services.Interfaces.IJWT;
 using ChatX.Application.DTOs.Request;
 using Core_Layer.Entities;
 using Core_Layer.InterfaceRepositories.IGenericRepo;
@@ -13,12 +14,14 @@ namespace Application_Layer.Services.Implementation
 {
     public class AuthService : IAuthService
     {
+        private IJWTService _jWTService;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IPasswordService _passwordService;
-        public AuthService(IUnitOfWork unitOfWork, IPasswordService passwordService)
+        public AuthService(IUnitOfWork unitOfWork, IPasswordService passwordService,IJWTService jWTService)
         {
             _unitOfWork = unitOfWork;
             _passwordService = passwordService;
+            _jWTService= jWTService;
         }
 
         public async Task<string> LoginUserAsync(LoginUserRequest request)
@@ -28,13 +31,17 @@ namespace Application_Layer.Services.Implementation
             if (user is not null)
             {
 
+
                 var response = _passwordService.VerifyPassword(request.Password, user.PasswordHash!);
 
                 if (!response)
                 {
                     return "Invalid Creadentials";
                 }
-                return "User Login Successfully";
+
+                var token = _jWTService.CreateAccessToken(request);
+
+                return ($"User Login Successfully {token} ");
 
             }
 

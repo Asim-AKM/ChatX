@@ -1,0 +1,77 @@
+﻿@page "/"
+@page "/register"
+@layout Layout.AuthenticationLayout
+
+@* ==================== AUTHENTICATION LAYOUT ==================== *@
+<div class="authwrap">
+
+    @* ==================== HERO / BRAND INTRODUCTION ==================== *@
+    <section class="authvisual">
+        <div class="brand" style="padding:0;color:white">
+            <button class="humberger" type="button" aria-label="Toggle sidebar" aria-expanded="true">
+                <span></span><span></span><span></span>
+            </button>
+            <div>
+                <strong>ChatX</strong>
+                <small style="color:#dce6ff">Connect in real time</small>
+            </div>
+        </div>
+        
+        <h1>
+            Conversations<br />
+            that feel closer.
+        </h1>
+        <p>
+            A thoughtful, fast and secure place for your conversations. Keep your people close, wherever you are.
+        </p>
+        
+        <div class="authfeatures">
+            <span>✦ Real-time chat</span>
+            <span>◉ Privacy focused</span>
+            <span>▣ Any device</span>
+        </div>
+    </section>
+
+    @* ==================== AUTHENTICATION FORM ==================== *@
+    <section class="authform">
+        <div class="formbox">
+            <div class="eyebrow">WELCOME TO CHATX</div>
+            <h2>Create your account</h2>
+            <p>Join ChatX and start connecting.</p>
+            
+            <form id="authForm">
+                <div class="field">
+                    <label>Full name</label>
+                    <input placeholder="Your name" required="" />
+                </div>
+                <div class="field">
+                    <label>Email address</label>
+                    <input placeholder="you@example.com" required="" type="email" />
+                </div>
+                <div class="field">
+                    <label>Password</label>
+                    <input placeholder="Enter your password" required="" type="password" />
+                </div>
+                <button class="btn primary full" type="submit">Create account</button>
+            </form>
+            
+            <div class="authswitch">
+                Already have an account?
+                <a href="/login">Sign in</a>
+            </div>
+            
+            <p style="font-size:11px;text-align:center;margin-top:28px">
+                UI template · Authentication is not connected to a backend
+            </p>
+            
+            <a class="btn full" href="/overview" style="display:block;text-align:center;margin-top:10px">
+                Preview app
+            </a>
+        </div>
+    </section>
+
+</div>
+
+@code {
+
+}

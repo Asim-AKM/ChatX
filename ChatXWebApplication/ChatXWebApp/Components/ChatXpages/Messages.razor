@@ -1,0 +1,181 @@
+﻿@page "/messages"
+
+@* ==================== CHATS PAGE SECTION ==================== *@
+<section class="screen" id="chats">
+    <div class="conversation-layout">
+
+        @* ==================== CONVERSATION LIST ==================== *@
+        <aside class="chatlist" id="chatlist">
+            <div class="chatlist-head">
+                <h2>
+                    Messages
+                    <span class="pill">12</span>
+                </h2>
+                <button class="iconbtn" onclick="location.href='people.html'" title="Find people">
+                    ＋
+                </button>
+            </div>
+
+            <div class="searchbox">
+                ⌖
+                <input id="chatSearch" oninput="filterChats()" placeholder="Search conversations..." />
+            </div>
+
+            <div class="filters">
+                <button class="active" onclick="setFilter(this,'all')">All</button>
+                <button onclick="setFilter(this,'unread')">Unread</button>
+                <button onclick="setFilter(this,'groups')">Groups</button>
+            </div>
+
+            <div id="chatRows">
+                <div class="chatrow active" data-name="James Miller" data-type="all"
+                     onclick="openChat('James Miller','JM','Hey! Are we still meeting today?')">
+                    <div class="avatar">JM</div>
+                    <div class="person-info">
+                        <strong>James Miller</strong>
+                        <small>Hey! Are we still meeting today?</small>
+                    </div>
+                    <span class="chatmeta">2m</span>
+                </div>
+
+                <div class="chatrow" data-name="Fatima Khan" data-type="unread"
+                     onclick="openChat('Fatima Khan','FK','Sent you a photo')">
+                    <div class="avatar green">FK</div>
+                    <div class="person-info">
+                        <strong>Fatima Khan</strong>
+                        <small><span class="dot"></span> Sent you a photo</small>
+                    </div>
+                    <span class="pill blue">2</span>
+                </div>
+
+                <div class="chatrow" data-name="Daniel Adams" data-type="all"
+                     onclick="openChat('Daniel Adams','DA','Thanks, that works for me.')">
+                    <div class="avatar purple">DA</div>
+                    <div class="person-info">
+                        <strong>Daniel Adams</strong>
+                        <small>Thanks, that works for me.</small>
+                    </div>
+                    <span class="chatmeta">1h</span>
+                </div>
+
+                <div class="chatrow" data-name="Ali Hassan" data-type="unread"
+                     onclick="openChat('Ali Hassan','AH','Voice message')">
+                    <div class="avatar orange">AH</div>
+                    <div class="person-info">
+                        <strong>Ali Hassan</strong>
+                        <small>Voice message</small>
+                    </div>
+                    <span class="pill blue">1</span>
+                </div>
+
+                <div class="chatrow" data-name="Design Team" data-type="groups"
+                     onclick="openChat('Design Team','DT','Maya: Updated the mockups')">
+                    <div class="avatar pink">DT</div>
+                    <div class="person-info">
+                        <strong>Design Team</strong>
+                        <small>Maya: Updated the mockups</small>
+                    </div>
+                    <span class="chatmeta">Yesterday</span>
+                </div>
+
+                <div class="chatrow" data-name="Ayesha Noor" data-type="all"
+                     onclick="openChat('Ayesha Noor','AN','See you tomorrow!')">
+                    <div class="avatar purple">AN</div>
+                    <div class="person-info">
+                        <strong>Ayesha Noor</strong>
+                        <small>See you tomorrow!</small>
+                    </div>
+                    <span class="chatmeta">Yesterday</span>
+                </div>
+            </div>
+        </aside>
+
+        @* ==================== ACTIVE CONVERSATION ==================== *@
+        <section class="chatarea" id="chatarea">
+
+            @* ---- Conversation header ---- *@
+            <div class="chathead">
+                <div class="avatar" id="activeAvatar">JM</div>
+                <div class="person-info">
+                    <strong id="activeName">James Miller</strong>
+                    <small id="activeStatus">● Online</small>
+                </div>
+
+                <button class="iconbtn"
+                        onclick="toast('Search in conversation &mdash; UI preview')"
+                        title="Search in conversation">⌖</button>
+
+                @* ---- Conversation actions dropdown ---- *@
+                <div class="dropdown">
+                    <button class="iconbtn dropdown-trigger" type="button"
+                            aria-label="Conversation options" aria-expanded="false"
+                            data-dropdown-trigger>⋯</button>
+                    <div class="dropdown-menu dropdown-menu-end" role="menu">
+                        <button role="menuitem" type="button"
+                                onclick="toast('Conversation details (preview)')">View contact details</button>
+                        <button role="menuitem" type="button"
+                                onclick="toast('Conversation muted (preview)')">Mute conversation</button>
+                        <button role="menuitem" type="button"
+                                onclick="toast('Conversation search is available above')">Search messages</button>
+                        <button role="menuitem" type="button"
+                                onclick="toast('Conversation cleared (preview only)')">Clear conversation</button>
+                    </div>
+                </div>
+            </div>
+
+            @* ---- Message history ---- *@
+            <div class="messages" id="messages">
+                <div class="dayline">TODAY</div>
+
+                <div class="bubble">
+                    Hey Sarah! How is your project going?
+                    <small>10:24 AM</small>
+                </div>
+
+                <div class="bubble mine">
+                    It's going well! I'm polishing the new ChatX UI.
+                    <small>10:26 AM · ✓✓</small>
+                </div>
+
+                <div class="bubble">
+                    Nice! Are we still meeting today?
+                    <small>10:27 AM</small>
+                </div>
+
+                <div class="bubble mine">
+                    Yes, absolutely. I'll share the latest design before then.
+                    <small>10:28 AM · ✓✓ Read</small>
+                </div>
+            </div>
+
+            @* ==================== MESSAGE COMPOSER ==================== *@
+            <form class="composer" id="messageForm">
+
+                @* ---- Attachment dropdown ---- *@
+                <div class="dropdown attachment-dropdown">
+                    <button class="iconbtn dropdown-trigger attach-trigger" type="button"
+                            aria-label="Attach file" aria-expanded="false"
+                            data-dropdown-trigger>＋</button>
+                    <div class="dropdown-menu dropdown-menu-up" role="menu">
+                        <button role="menuitem" type="button"
+                                onclick="toast('Photo and video picker (preview)')">▧ &nbsp; Photo or video</button>
+                        <button role="menuitem" type="button"
+                                onclick="toast('Document picker (preview)')">▤ &nbsp; Document</button>
+                        <button role="menuitem" type="button"
+                                onclick="toast('Location sharing (preview)')">⌖ &nbsp; Share location</button>
+                    </div>
+                </div>
+
+                <input type="text" autocomplete="off" enterkeyhint="send"
+                       aria-label="Write a message" id="messageInput"
+                       placeholder="Write a message..." maxlength="4000" />
+
+                <button aria-label="Send message" class="send" type="submit">➤</button>
+            </form>
+        </section>
+    </div>
+</section>
+
+@code {
+
+}

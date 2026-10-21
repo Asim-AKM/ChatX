@@ -20,7 +20,7 @@ namespace Infrastructure_Layer.Persistence.ImplementationRepo
         {
             _context = context;
         }
-        public async Task<User> CheakDuplication(string identifier)
+        public async Task<User>  CheakDuplication(string identifier)
         {
             var existingUser = await _context.Users.FirstOrDefaultAsync(x => x.Email == identifier || x.UserName == identifier || x.Contact == identifier);
             return existingUser;

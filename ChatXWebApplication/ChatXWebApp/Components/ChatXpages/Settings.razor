@@ -1,0 +1,87 @@
+﻿@page "/settings"
+
+@* ==================== SETTINGS PAGE SECTION ==================== *@
+<section class="screen" id="settings">
+    
+    <div class="panel" style="max-width:780px">
+        <div class="eyebrow">PREFERENCES</div>
+        <h2 style="margin:7px 0 3px">Settings</h2>
+        <p class="muted">Personalize your ChatX experience.</p>
+        
+        @* ---- Appearance (Theme Toggle) ---- *@
+        <div class="settings-row theme-setting">
+            <div>
+                <strong>Appearance</strong>
+                <div class="muted">Switch between light and dark mode.</div>
+            </div>
+            <button class="theme-toggle" id="themeToggle" type="button" aria-pressed="false">
+                <span class="theme-toggle-icon">☾</span>
+                <span id="themeToggleLabel">Dark mode</span>
+            </button>
+        </div>
+
+        @* ---- Online Status ---- *@
+        <div class="settings-row">
+            <div>
+                <strong>Online status</strong>
+                <div class="muted">Let people see when you're available.</div>
+            </div>
+            <button class="toggle on" onclick="this.classList.toggle('on')"></button>
+        </div>
+
+        @* ---- Message Notifications ---- *@
+        <div class="settings-row">
+            <div>
+                <strong>Message notifications</strong>
+                <div class="muted">Get notified when new messages arrive.</div>
+            </div>
+            <button class="toggle on" onclick="this.classList.toggle('on')"></button>
+        </div>
+
+        @* ---- Read Receipts ---- *@
+        <div class="settings-row">
+            <div>
+                <strong>Read receipts</strong>
+                <div class="muted">Let others know when you've read their messages.</div>
+            </div>
+            <button class="toggle on" onclick="this.classList.toggle('on')"></button>
+        </div>
+
+        @* ---- Sound ---- *@
+        <div class="settings-row">
+            <div>
+                <strong>Sound</strong>
+                <div class="muted">Play a sound for new messages.</div>
+            </div>
+            <button class="toggle" onclick="this.classList.toggle('on')"></button>
+        </div>
+
+        @* ---- Privacy and Security ---- *@
+        <div class="settings-row">
+            <div>
+                <strong>Privacy and security</strong>
+                <div class="muted">Password, sessions, and account protection.</div>
+            </div>
+            <button class="btn" onclick="toast('Privacy controls connect to backend in the real app')">
+                Manage →
+            </button>
+        </div>
+
+        @* ---- Sign Out ---- *@
+<div class="settings-row">
+    <div>
+        <strong>Sign out</strong>
+        <div class="muted">Leave this ChatX session.</div>
+    </div>
+    <button class="btn" onclick="location.href='/register'">
+        Sign out
+    </button>
+</div>
+        
+    </div>
+
+</section>
+
+@code {
+
+}

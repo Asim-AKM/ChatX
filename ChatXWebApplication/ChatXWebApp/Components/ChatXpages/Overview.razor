@@ -1,0 +1,134 @@
+﻿@page "/overview"
+
+@* ==================== DASHBOARD PAGE SECTION ==================== *@
+<section class="screen active" id="dashboard">
+
+    <div class="eyebrow">YOUR WORKSPACE</div>
+
+    <div class="sectionhead" style="margin-top:6px">
+        <h2>Good evening, Sarah 👋</h2>
+        <span class="pill blue">● All systems ready</span>
+    </div>
+
+    @* ==================== SUMMARY STATISTICS CARDS ==================== *@
+    <div class="grid">
+        <div class="stat">
+            <span>Total conversations</span>
+            <strong>12</strong>
+            <small>↗ Your chat list</small>
+        </div>
+        <div class="stat">
+            <span>Unread messages</span>
+            <strong>3</strong>
+            <small>● Waiting for you</small>
+        </div>
+        <div class="stat">
+            <span>People online</span>
+            <strong>5</strong>
+            <small>● Available now</small>
+        </div>
+    </div>
+
+    @* ==================== RECENT CHATS + PEOPLE ONLINE ==================== *@
+    <div class="two-col" style="margin-top:18px">
+
+        <div class="panel">
+            <div class="sectionhead" style="margin-top:0">
+                <h2>Recent conversations</h2>
+                <button class="btn soft" onclick="showScreen('chats')">View all</button>
+            </div>
+
+            <div class="person">
+                <div class="avatar">JM</div>
+                <div class="person-info">
+                    <strong>James Miller</strong>
+                    <small>Hey! Are we still meeting today?</small>
+                </div>
+                <span class="chatmeta">2m</span>
+            </div>
+
+            <div class="person">
+                <div class="avatar green">FK</div>
+                <div class="person-info">
+                    <strong>Fatima Khan</strong>
+                    <small>Sent you a photo</small>
+                </div>
+                <span class="chatmeta">18m</span>
+            </div>
+
+            <div class="person">
+                <div class="avatar purple">DA</div>
+                <div class="person-info">
+                    <strong>Daniel Adams</strong>
+                    <small>Thanks, that works for me.</small>
+                </div>
+                <span class="chatmeta">1h</span>
+            </div>
+
+            <div class="person">
+                <div class="avatar orange">AH</div>
+                <div class="person-info">
+                    <strong>Ali Hassan</strong>
+                    <small>Voice message</small>
+                </div>
+                <span class="chatmeta">3h</span>
+            </div>
+        </div>
+
+        <div class="panel">
+            <div class="sectionhead" style="margin-top:0">
+                <h2>People online</h2>
+                <span class="pill">5 online</span>
+            </div>
+
+            <div class="person">
+                <div class="avatar green">FK</div>
+                <div class="person-info">
+                    <strong>Fatima Khan</strong>
+                    <small><span class="dot"></span> Available</small>
+                </div>
+                <button class="btn soft" onclick="startChat('Fatima Khan','FK')">Chat</button>
+            </div>
+
+            <div class="person">
+                <div class="avatar purple">DA</div>
+                <div class="person-info">
+                    <strong>Daniel Adams</strong>
+                    <small><span class="dot"></span> Available</small>
+                </div>
+                <button class="btn soft" onclick="startChat('Daniel Adams','DA')">Chat</button>
+            </div>
+
+            <div class="person">
+                <div class="avatar orange">AH</div>
+                <div class="person-info">
+                    <strong>Ali Hassan</strong>
+                    <small><span class="dot"></span> Available</small>
+                </div>
+                <button class="btn soft" onclick="startChat('Ali Hassan','AH')">Chat</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="sectionhead">
+        <h2>Quick actions</h2>
+    </div>
+    <div class="grid">
+        <button class="panel" onclick="showScreen('search')" style="text-align:left">
+            <strong>⌖ Find someone</strong>
+            <p class="muted">Search users and start a chat.</p>
+        </button>
+        <button class="panel" onclick="showScreen('chats')" style="text-align:left">
+            <strong>▤ Open messages</strong>
+            <p class="muted">Continue a conversation.</p>
+        </button>
+        <button class="panel" onclick="showScreen('settings')" style="text-align:left">
+            <strong>⚙ Manage settings</strong>
+            <p class="muted">Adjust your preferences.</p>
+        </button>
+    </div>
+</section>
+
+@code {
+
+}
