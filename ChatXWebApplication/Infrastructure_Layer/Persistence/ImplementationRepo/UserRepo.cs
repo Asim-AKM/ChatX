@@ -39,5 +39,10 @@ namespace Infrastructure_Layer.Persistence.ImplementationRepo
             return await _context.Users.AnyAsync(u => u.UserId == userId && u.IsActive);
         }
 
+
+        public async Task<User> GetUserByUserName(string identifier)
+        {
+            return await _context.Users.FirstOrDefaultAsync(x => x.UserName == identifier);
+        }
     }
 }

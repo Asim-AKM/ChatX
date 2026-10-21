@@ -1,3 +1,4 @@
+using Application_Layer.DI_Registration;
 using ChatXWebApp.Components;
 using Infrastructure_Layer.Data.InfraDI_S;
 
@@ -13,7 +14,11 @@ namespace ChatXWebApp
             // Add services to the container.
             builder.Services.AddRazorComponents()
                 .AddInteractiveServerComponents();
-            builder.Services.AddInfrastructureServices(builder.Configuration);
+
+            builder.Services.AddHttpContextAccessor();
+
+            builder.Services.AddInfrastructureServices(builder.Configuration)
+                .AddApplicationServices();
 
             var app = builder.Build();
 

@@ -2,6 +2,7 @@
 using Application_Layer.Services.Implementation;
 using Application_Layer.Services.Interfaces;
 using ChatX.Application.Conversations;
+using Application_Layer.Utililties;
 using ChatX.Application.Validators;
 using FluentValidation;
 using FluentValidation.AspNetCore;
@@ -18,10 +19,7 @@ namespace Application_Layer.DI_Registration
             .AddScoped<IUserServices, UserServices>()
             .AddScoped<IConversationService, ConversationService>()
             .AddScoped<IConversationAccessGuard, ConversationAccessGuard>();
-            
-        
-
-
+            .AddScoped<ImageUpload>();
     }
 
 }

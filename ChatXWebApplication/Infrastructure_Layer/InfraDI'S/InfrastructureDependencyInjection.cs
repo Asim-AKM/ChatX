@@ -1,8 +1,10 @@
 ﻿using Core_Layer.InterfaceRepositories;
+using Core_Layer.InterfaceRepositories.UnitOfWorkInterface;
 using Core_Layer.InterfaceSecurity;
 using Infrastructure_Layer.Data.ApplicationDbContext;
 using Infrastructure_Layer.Persistence.ImplementationRepo;
 using Infrastructure_Layer.Persistence.ImplementationRepo.Security;
+using Infrastructure_Layer.Persistence.ImplementationRepo.UnitOfWorkImplementation;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -16,7 +18,6 @@ namespace Infrastructure_Layer.Data.InfraDI_S
             .AddScoped<IPasswordService, PasswordService>()
             .AddScoped<IUserRepo, UserRepo>()
             .AddScoped<IConversationRepo, ConversationRepo>();
-            
-
+            .AddScoped<IUnitOfWork, UnitOfWork>();
     }
 }

@@ -1,11 +1,6 @@
-﻿using Application_Layer.Services.Interfaces;
-using Core_Layer.Entities;
+﻿using Application_Layer.DTO_s.Response;
+using Application_Layer.Services.Interfaces;
 using Core_Layer.InterfaceRepositories.UnitOfWorkInterface;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Application_Layer.Services.Implementation
 {
@@ -16,9 +11,41 @@ namespace Application_Layer.Services.Implementation
         {
             _unitOfWork = unitOfWork;
         }
-        public Task<List<User>> GetUsersAsync()
+
+        public async Task<UserDataResponse> GetUserByUserName(string Identifier)
         {
-            return _unitOfWork.UserRepo.GetAllAsync();
+            var user = await _unitOfWork.UserRepo.GetUserByUserName(Identifier);
+            return new UserDataResponse()
+            {
+                UserID = user.UserId,
+                UserName = user.UserName,
+                DisplayName = user.DisplayName,
+                ProfileImageUrl = user.ProfileImageUrl,
+                IsActive = user.IsActive,
+            };
+        }
+
+        public async Task<List<UserDataResponse>> GetUsersAsync()
+        {
+            var user = await _unitOfWork.UserRepo.GetAllAsync();
+
+            List<UserDataResponse> users = new List<UserDataResponse>();
+
+            foreach (var item in user)
+            {
+                UserDataResponse response = new UserDataResponse()
+                {
+                    UserID = item.UserId,
+                    UserName = item.UserName,
+                    DisplayName = item.DisplayName,
+                    ProfileImageUrl = item.ProfileImageUrl,
+                    IsActive = item.IsActive
+                };
+
+                users.Add(response);
+            }
+
+            return users;
         }
     }
 }
