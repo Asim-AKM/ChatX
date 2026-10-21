@@ -1,3 +1,7 @@
+﻿using Application_Layer.Conversation;
+using Application_Layer.Services.Implementation;
+using Application_Layer.Services.Interfaces;
+using ChatX.Application.Conversations;
 ﻿using Application_Layer.Services.Implementation;
 using Application_Layer.Services.Implementation.JWT;
 using Application_Layer.Services.Interfaces;
@@ -17,6 +21,8 @@ namespace Application_Layer.DI_Registration
             .AddValidatorsFromAssemblyContaining<RegisterUserValidator>()
             .AddScoped<IAuthService, AuthService>()
             .AddScoped<IUserServices, UserServices>()
+            .AddScoped<IConversationService, ConversationService>()
+            .AddScoped<IConversationAccessGuard, ConversationAccessGuard>();
             .AddScoped<IJWTService, JWTService>();
             .AddScoped<ImageUpload>();
     }

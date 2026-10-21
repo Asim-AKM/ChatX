@@ -16,6 +16,9 @@ namespace Infrastructure_Layer.Data.InfraDI_S
         public static IServiceCollection AddInfrastructureServices(this IServiceCollection services, IConfiguration configuration) => services
             .AddDbContext<AppDbContext>(options => options.UseSqlServer(configuration.GetConnectionString("ChatXWebApp_Conn")))
             .AddScoped<IPasswordService, PasswordService>()
+            .AddScoped<IUserRepo, UserRepo>()
+            .AddScoped<IConversationRepo, ConversationRepo>();
+            .AddScoped<IUnitOfWork, UnitOfWork>();
             .AddScoped<IUnitOfWork, UnitOfWork>()
             .AddScoped<IUserRepo, UserRepo>();
     }

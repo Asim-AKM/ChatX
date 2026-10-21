@@ -12,6 +12,7 @@ namespace Core_Layer.InterfaceRepositories
     {
         Task<User> CheakDuplication(string identifier);
         Task<User> ExistingUser(User user);
+        Task<bool> IsActiveUserAsync(Guid userId);
         Task<User> GetUserByUserName(string identifier);
 
     }

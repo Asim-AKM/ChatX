@@ -7,6 +7,6 @@ namespace Application_Layer.Services.Interfaces
     public interface IConversationService
     {
         public  Task<ConversationResponse> StartConversationAsync(Guid currentUserId, ConversationRequest request);
-
+        Task<ConversationResponse> GetConversationByIdAsync(Guid currentUserId, Guid conversationId);
     }
 }
