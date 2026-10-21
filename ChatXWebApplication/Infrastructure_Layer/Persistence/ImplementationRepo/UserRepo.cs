@@ -34,5 +34,10 @@ namespace Infrastructure_Layer.Persistence.ImplementationRepo
             return response!;
         
         }
+
+        public async Task<User> GetUserByUserName(string identifier)
+        {
+            return await _context.Users.FirstOrDefaultAsync(x => x.UserName == identifier);
+        }
     }
 }

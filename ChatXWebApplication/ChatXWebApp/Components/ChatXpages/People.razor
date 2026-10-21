@@ -1,6 +1,7 @@
 ﻿@page "/people"
+@using Application_Layer.DTO_s.Response
+@using Application_Layer.Services.Interfaces
 
-@* ==================== SEARCH PAGE SECTION ==================== *@
 <section class="screen" id="search">
 
     <div class="eyebrow">DISCOVER YOUR PEOPLE</div>
@@ -12,82 +13,159 @@
 
     <div class="searchbox" style="max-width:620px">
         ⌖
-        <input id="userSearch" oninput="filterUsers()" placeholder="Search by username or name..." />
+        <input id="userSearch" @bind-value="searchTerm" placeholder="Search by username or name..." />
+        <button class="btn btn-primary" @onclick="() => GetSerchedUser(searchTerm)">Search</button>
     </div>
 
     <div class="sectionhead">
         <h2>Suggested people</h2>
-        <span class="muted" id="userCount">6 people</span>
+        <span class="muted" id="userCount">@FilteredUsers.Count people</span>
     </div>
 
-    @* ==================== SUGGESTED PEOPLE GRID ==================== *@
-    <div class="result-grid" id="userResults">
-
-        <div class="result" data-user="fatima khan fatima">
-            <div class="avatar green">FK</div>
-            <div class="person-info">
-                <strong>Fatima Khan</strong>
-                <small>&#64;fatima_khan · <span class="dot"></span> Online</small>
-            </div>
-            <button class="btn primary" onclick="startChat('Fatima Khan','FK')">Start Chat</button>
+    @if (isLoading)
+    {
+        <p class="muted">Loading people...</p>
+    }
+    else if (FilteredUsers.Count == 0)
+    {
+        @* Empty state *@
+        <div class="empty" id="noUsers">
+            <div class="big">⌖</div>
+            <strong>No users found</strong>
+            <p>Try another name or username.</p>
         </div>
+    }
+    else
+    {
+        <div class="result-grid" id="userResults">
+            @foreach (var user in FilteredUsers)
+            {
+                <div class="result" data-user="@($"{user.DisplayName} {user.UserName}".ToLower())">
 
-        <div class="result" data-user="james miller james">
-            <div class="avatar">JM</div>
-            <div class="person-info">
-                <strong>James Miller</strong>
-                <small>&#64;jamesm · <span class="dot"></span> Online</small>
-            </div>
-            <button class="btn primary" onclick="startChat('James Miller','JM')">Start Chat</button>
+                    @* Avatar: image if available, else initials *@
+                    @if (!string.IsNullOrWhiteSpace(user.ProfileImageUrl))
+                    {
+                        <img class="avatar" src="@user.ProfileImageUrl" alt="@user.DisplayName" />
+                    }
+                    else
+                    {
+                        <div class="avatar @GetAvatarColor(user.UserID)">
+                            @GetInitials(user.DisplayName)
+                        </div>
+                    }
+
+                    <div class="person-info">
+                        <strong>@user.DisplayName</strong>
+                        <small>
+                            &#64;@user.UserName ·
+                            @if (user.IsActive == true)
+                            {
+                                <span class="dot"></span> <text>Online</text>
+                            }
+                            else
+                            {
+                                <text>Offline</text>
+                            }
+                        </small>
+                    </div>
+
+                    <button class="btn primary"
+                            @onclick="() => StartChat(user)">
+                        Start Chat
+                    </button>
+                </div>
+            }
         </div>
-
-        <div class="result" data-user="daniel adams daniel">
-            <div class="avatar purple">DA</div>
-            <div class="person-info">
-                <strong>Daniel Adams</strong>
-                <small>&#64;daniel_a · Away</small>
-            </div>
-            <button class="btn primary" onclick="startChat('Daniel Adams','DA')">Start Chat</button>
-        </div>
-
-        <div class="result" data-user="ali hassan ali">
-            <div class="avatar orange">AH</div>
-            <div class="person-info">
-                <strong>Ali Hassan</strong>
-                <small>&#64;alihassan · <span class="dot"></span> Online</small>
-            </div>
-            <button class="btn primary" onclick="startChat('Ali Hassan','AH')">Start Chat</button>
-        </div>
-
-        <div class="result" data-user="ayesha noor ayesha">
-            <div class="avatar pink">AN</div>
-            <div class="person-info">
-                <strong>Ayesha Noor</strong>
-                <small>&#64;ayesha_n · Offline</small>
-            </div>
-            <button class="btn primary" onclick="startChat('Ayesha Noor','AN')">Start Chat</button>
-        </div>
-
-        <div class="result" data-user="maya ali maya">
-            <div class="avatar">MA</div>
-            <div class="person-info">
-                <strong>Maya Ali</strong>
-                <small>&#64;mayaali · <span class="dot"></span> Online</small>
-            </div>
-            <button class="btn primary" onclick="startChat('Maya Ali','MA')">Start Chat</button>
-        </div>
-
-    </div>
-
-    @* ==================== EMPTY STATE ==================== *@
-    <div class="empty hidden" id="noUsers">
-        <div class="big">⌖</div>
-        <strong>No users found</strong>
-        <p>Try another name or username.</p>
-    </div>
+    }
 
 </section>
 
 @code {
+    [Inject] private IUserServices _userServices { get; set; } = default!;
 
+    private List<UserDataResponse> _users = new();
+    private string searchTerm = "";
+    private bool isLoading = true;
+
+    private List<UserDataResponse> FilteredUsers => _users;
+
+    protected override async Task OnInitializedAsync() => await LoadUsers();
+
+    private async Task LoadUsers()
+    {
+        isLoading = true;
+        try
+        {
+            var result = await _userServices.GetUsersAsync();
+            _users = result.Select(u => new UserDataResponse
+            {
+                UserID = u.UserID,
+                UserName = u.UserName,
+                DisplayName = u.DisplayName,
+                ProfileImageUrl = u.ProfileImageUrl,
+                IsActive = u.IsActive
+            }).ToList();
+        }
+        catch
+        {
+            _users = new();
+        }
+        finally
+        {
+            isLoading = false;
+        }
+    }
+
+    private async Task GetSerchedUser(string identifier) 
+    {
+        if (string.IsNullOrWhiteSpace(identifier))
+        {
+            await LoadUsers(); 
+            return;
+        }
+
+        isLoading = true;
+        try
+        {
+            var user = await _userServices.GetUserByUserName(identifier.Trim());
+            _users = user is null
+                ? new List<UserDataResponse>()
+                : new List<UserDataResponse> { user };
+        }
+        catch
+        {
+            _users = new();
+        }
+        finally
+        {
+            isLoading = false;
+        }
+    }
+
+    private void StartChat(UserDataResponse user)
+    {
+        Console.WriteLine($"Start chat with {user.DisplayName} (ID: {user.UserID})");
+    }
+
+    private static string GetInitials(string? name)
+    {
+        if (string.IsNullOrWhiteSpace(name)) return "?";
+        var parts = name.Trim().Split(' ', StringSplitOptions.RemoveEmptyEntries);
+        return parts.Length == 1
+            ? parts[0][..1].ToUpper()
+            : (parts[0][..1] + parts[^1][..1]).ToUpper();
+    }
+
+    private static string GetAvatarColor(Guid id)
+    {
+        var index = Math.Abs(id.GetHashCode()) % 5;
+        return index switch
+        {
+            0 => "",
+            1 => "green",
+            2 => "purple",
+            3 => "orange",
+            _ => "pink"
+        };
+    }
 }
