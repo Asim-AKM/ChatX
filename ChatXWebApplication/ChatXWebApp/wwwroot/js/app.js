@@ -170,17 +170,6 @@ document.querySelectorAll('.toggle').forEach(t =>
 );
 
 
-/* ============================================================
-   Auth Forms (Login & Register Pages)
-   ============================================================ */
-
-const authForm = document.getElementById('authForm');
-if (authForm) {
-    authForm.addEventListener('submit', e => {
-        e.preventDefault();
-        toast('Demo mode: backend authentication is not connected');
-    });
-}
 
 
 /* ============================================================

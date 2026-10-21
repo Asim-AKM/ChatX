@@ -19,5 +19,7 @@ namespace Infrastructure_Layer.Data.InfraDI_S
             .AddScoped<IUserRepo, UserRepo>()
             .AddScoped<IConversationRepo, ConversationRepo>();
             .AddScoped<IUnitOfWork, UnitOfWork>();
+            .AddScoped<IUnitOfWork, UnitOfWork>()
+            .AddScoped<IUserRepo, UserRepo>();
     }
 }

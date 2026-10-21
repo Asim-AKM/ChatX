@@ -1,10 +1,15 @@
 ﻿@page "/login"
 @layout Layout.AuthenticationLayout
+@using System.Security.Claims
+@using Microsoft.AspNetCore.Authentication
+@using Microsoft.AspNetCore.Authentication.Cookies
+@using ChatX.Application.DTOs.Request
+@using Application_Layer.Services.Interfaces
+@inject IAuthService AuthService
+@inject NavigationManager Nav
 
-@* ==================== AUTHENTICATION LAYOUT ==================== *@
 <div class="authwrap">
 
-    @* ==================== HERO / BRAND INTRODUCTION ==================== *@
     <section class="authvisual">
         <div class="brand" style="padding:0;color:white">
             <button class="humberger" type="button" aria-label="Toggle sidebar" aria-expanded="true">
@@ -15,7 +20,7 @@
                 <small style="color:#dce6ff">Connect in real time</small>
             </div>
         </div>
-        
+
         <h1>
             Conversations<br />
             that feel closer.
@@ -23,7 +28,7 @@
         <p>
             A thoughtful, fast and secure place for your conversations. Keep your people close, wherever you are.
         </p>
-        
+
         <div class="authfeatures">
             <span>✦ Real-time chat</span>
             <span>◉ Privacy focused</span>
@@ -31,41 +36,70 @@
         </div>
     </section>
 
-    @* ==================== AUTHENTICATION FORM ==================== *@
     <section class="authform">
         <div class="formbox">
             <div class="eyebrow">WELCOME TO CHATX</div>
             <h2>Sign in to your account</h2>
             <p>Pick up where your conversations left off.</p>
-            
-            <form id="authForm">
+
+            @if (!string.IsNullOrEmpty(_error))
+            {
+                <p style="color:#e5484d;font-size:13px">@_error</p>
+            }
+
+            <EditForm Model="Input" FormName="login" method="post" OnValidSubmit="LoginAsync" id="authForm">
                 <div class="field">
                     <label>Email address</label>
-                    <input placeholder="you@example.com" required="" type="email" />
+                    <InputText @bind-Value="Input.Identifier" type="email"
+                               placeholder="you@example.com" required />
                 </div>
                 <div class="field">
                     <label>Password</label>
-                    <input placeholder="Enter your password" required="" type="password" />
+                    <InputText @bind-Value="Input.Password" type="password"
+                               placeholder="Enter your password" required />
                 </div>
                 <button class="btn primary full" type="submit">Sign in</button>
-            </form>
-            
+            </EditForm>
+
             <div class="authswitch">
                 New to ChatX?
                 <a href="/register">Create an account</a>
             </div>
-            
-            <p style="font-size:11px;text-align:center;margin-top:28px">
-                UI template · Authentication is not connected to a backend
-            </p>
-            
-            <a class="btn full" href="/overview" style="display:block;text-align:center;margin-top:10px">
-                Preview app
-            </a>
         </div>
     </section>
 
 </div>
-@code {
 
+@code {
+    [CascadingParameter]
+    private HttpContext HttpContext { get; set; } = default!;
+
+    [SupplyParameterFromForm]
+    private LoginUserRequest Input { get; set; } = new();
+
+    private string? _error;
+
+    private async Task LoginAsync()
+    {
+        var result = await AuthService.LoginUserAsync(Input);
+
+        if (!result.Success)
+        {
+            _error = "Invalid email or password.";
+            return;
+        }
+
+        var claims = new List<Claim>
+        {
+            new(ClaimTypes.NameIdentifier, result.UserId.ToString()),
+            new(ClaimTypes.Name, result.Identifier)
+        };
+
+        var identity = new ClaimsIdentity(
+            claims, CookieAuthenticationDefaults.AuthenticationScheme);
+
+        await HttpContext.SignInAsync(new ClaimsPrincipal(identity));
+
+        Nav.NavigateTo("/overview");
+    }
 }
