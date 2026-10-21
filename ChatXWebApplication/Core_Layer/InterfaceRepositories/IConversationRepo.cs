@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
 using Core_Layer.Entities;
 
 namespace Core_Layer.InterfaceRepositories
@@ -11,6 +7,13 @@ namespace Core_Layer.InterfaceRepositories
     {
         Task<Guid?> FindPrivateConversationIdAsync(Guid userAId, Guid userBId);
         Task AddConversationAsync(Conversation conversation, List<ConversationMember> members);
+        Task<bool> IsActiveMemberAsync(Guid conversationId, Guid userId);
+        Task<Conversation?> GetConversationByIdAsync(Guid conversationId);
+        
+       Task<User?> GetOtherParticipantAsync(Guid conversationId, Guid currentUserId);
+
+
+
     }
 }  
 

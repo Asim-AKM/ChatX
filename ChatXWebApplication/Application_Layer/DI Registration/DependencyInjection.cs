@@ -1,5 +1,7 @@
-﻿using Application_Layer.Services.Implementation;
+﻿using Application_Layer.Conversation;
+using Application_Layer.Services.Implementation;
 using Application_Layer.Services.Interfaces;
+using ChatX.Application.Conversations;
 using ChatX.Application.Validators;
 using FluentValidation;
 using FluentValidation.AspNetCore;
@@ -13,7 +15,13 @@ namespace Application_Layer.DI_Registration
             .AddFluentValidationAutoValidation()
             .AddValidatorsFromAssemblyContaining<RegisterUserValidator>()
             .AddScoped<IAuthService, AuthService>()
-            .AddScoped<IUserServices, UserServices>();
+            .AddScoped<IUserServices, UserServices>()
+            .AddScoped<IConversationService, ConversationService>()
+            .AddScoped<IConversationAccessGuard, ConversationAccessGuard>();
+            
+        
+
+
     }
 
 }

@@ -1,17 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Application_Layer.DTO_s.Request;
+﻿
 
 namespace Application_Layer.DTO_s.Response
 {
-    public record ConversationResponse
+    public class ConversationResponse
     {
         
         
-            public Guid Id { get; set; }
+            public Guid ConversationId { get; set; }
 
             public List<ConversationParticipant> Participants { get; set; } = new();
 

@@ -10,7 +10,7 @@ namespace Core_Layer.Entities
     public class Conversation
     {
         [Key]
-        public Guid Id { get; set; } = Guid.NewGuid();
+        public Guid ConversationId { get; set; } = Guid.NewGuid();
 
         public DateTime CreatedAt { get; set; }
 

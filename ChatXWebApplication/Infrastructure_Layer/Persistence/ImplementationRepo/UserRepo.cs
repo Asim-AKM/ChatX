@@ -34,5 +34,10 @@ namespace Infrastructure_Layer.Persistence.ImplementationRepo
             return response!;
         
         }
+        public async Task<bool> IsActiveUserAsync(Guid userId)
+        {
+            return await _context.Users.AnyAsync(u => u.UserId == userId && u.IsActive);
+        }
+
     }
 }

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
 using Core_Layer.Entities;
 using Core_Layer.InterfaceRepositories;
 using Infrastructure_Layer.Data.ApplicationDbContext;
@@ -11,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure_Layer.Persistence.ImplementationRepo
 {
-    public class ConversationRepo : Repository<Conversation>, IConversationRepo 
+    public class ConversationRepo : Repository<Conversation>, IConversationRepo
     {
         private readonly AppDbContext _db;
 
@@ -24,7 +20,7 @@ namespace Infrastructure_Layer.Persistence.ImplementationRepo
         public async Task AddConversationAsync(Conversation conversation, List<ConversationMember> members)
         {
             await _db.Conversations.AddAsync(conversation);
-            await _db.ConversationMembers.Add(members);
+            await _db.ConversationMembers.AddRangeAsync(members);
             
         }
 
@@ -36,10 +32,38 @@ namespace Infrastructure_Layer.Persistence.ImplementationRepo
                     .GroupBy(m => m.ConversationId)
                     .Where(g => g.Select(x => x.UserId).Distinct().Count() == 2)
                     .Join(_db.Conversations.Where(c => c.IsActive),
-                          g => g.Key, c => c.Id, (g, c) => (Guid?)c.Id)
+                          g => g.Key, c => c.ConversationId, (g, c) => (Guid?)c.ConversationId)
                     .FirstOrDefaultAsync();
             }
 
+        }
+
+        public async Task<User?> GetOtherParticipantAsync(Guid conversationId, Guid currentUserId)
+        {
+            return await(
+                from m in _db.ConversationMembers
+                join u in _db.Users on m.UserId equals u.UserId
+                where m.ConversationId == conversationId
+                      && m.IsActive
+                      && m.UserId != currentUserId
+                select u)
+                .FirstOrDefaultAsync();
+        }
+
+
+        public async Task<bool> IsActiveMemberAsync(Guid conversationId, Guid userId)
+        {
+            {
+                return await _db.ConversationMembers
+                    .AnyAsync(m => m.ConversationId == conversationId
+                                && m.UserId == userId
+                                && m.IsActive
+                                && _db.Conversations.Any(c => c.ConversationId == conversationId && c.IsActive));
+            }
+        }
+        public async Task<Conversation?> GetConversationByIdAsync(Guid conversationId)
+        {
+            return await _db.Conversations.FirstOrDefaultAsync(c => c.ConversationId == conversationId && c.IsActive);
         }
     }
 }
