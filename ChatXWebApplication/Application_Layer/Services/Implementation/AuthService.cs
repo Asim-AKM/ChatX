@@ -24,29 +24,47 @@ namespace Application_Layer.Services.Implementation
             _jWTService= jWTService;
         }
 
-        public async Task<string> LoginUserAsync(LoginUserRequest request)
+        //public async Task<string> LoginUserAsync(LoginUserRequest request)
+        //{
+        //    var user = await _unitOfWork.UserRepo.CheakDuplication(request.Identifier);
+
+        //    if (user is not null)
+        //    {
+
+
+        //        var response = _passwordService.VerifyPassword(request.Password, user.PasswordHash!);
+
+        //        if (!response)
+        //        {
+        //            return "Invalid Creadentials";
+        //        }
+
+        //        var token = _jWTService.CreateAccessToken(request);
+
+        //        return ($"User Login Successfully {token} ");
+
+        //    }
+
+        //    return "Invalid Credentials";
+        //}
+
+
+        public async Task<LoginResponse> LoginUserAsync(LoginUserRequest request)
         {
             var user = await _unitOfWork.UserRepo.CheakDuplication(request.Identifier);
 
-            if (user is not null)
+            if (user is null || !_passwordService.VerifyPassword(request.Password, user.PasswordHash!))
+                return new LoginResponse { Success = false, Message = "Invalid Credentials" };
+
+            return new LoginResponse
             {
-
-
-                var response = _passwordService.VerifyPassword(request.Password, user.PasswordHash!);
-
-                if (!response)
-                {
-                    return "Invalid Creadentials";
-                }
-
-                var token = _jWTService.CreateAccessToken(request);
-
-                return ($"User Login Successfully {token} ");
-
-            }
-
-            return "Invalid Credentials";
+                Success = true,
+                Message = "User Login Successfully",
+                UserId = user.UserId,
+                Identifier = request.Identifier
+            };
         }
+
 
         public async Task<string> RegisterUserAsync(RegisterUserRequest request)
         {

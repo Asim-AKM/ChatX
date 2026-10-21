@@ -170,18 +170,7 @@ document.querySelectorAll('.toggle').forEach(t =>
     )
 );
 
-/* ============================================================
-   Auth form (login / register pages)
-   ============================================================ */
 
-const authForm = document.getElementById('authForm');
-
-if (authForm) {
-    authForm.addEventListener('submit', e => {
-        e.preventDefault();
-        toast('Demo mode: backend authentication is not connected');
-    });
-}
 
 /* ============================================================
    Deep link: ?chat=Name — opens conversation on Messages page
