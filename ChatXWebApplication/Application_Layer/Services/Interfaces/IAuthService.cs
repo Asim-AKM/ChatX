@@ -9,5 +9,6 @@ namespace Application_Layer.Services.Interfaces
     {
         Task<string> RegisterUserAsync(RegisterUserRequest request);
         Task<string> LoginUserAsync(LoginUserRequest request);
+        Task<string> LogoutAsync(string identifier);
     }
 }

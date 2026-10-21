@@ -1,11 +1,8 @@
 ﻿using Application_Layer.DTO_s.Request;
-using Application_Layer.DTO_s.Response;
 using Application_Layer.Mappers;
 using Application_Layer.Services.Interfaces;
 using Application_Layer.Services.Interfaces.IJWT;
 using ChatX.Application.DTOs.Request;
-using Core_Layer.Entities;
-using Core_Layer.InterfaceRepositories.IGenericRepo;
 using Core_Layer.InterfaceRepositories.UnitOfWorkInterface;
 using Core_Layer.InterfaceSecurity;
 
@@ -38,10 +35,14 @@ namespace Application_Layer.Services.Implementation
                 {
                     return "Invalid Creadentials";
                 }
+                var accessToken = _jWTService.CreateAccessToken(request);
+                var refreshToken = _jWTService.CreateRefreshToken();
 
-                var token = _jWTService.CreateAccessToken(request);
+                user.RefreshToken = refreshToken;
+                user.RefreshTokenExpiry = DateTime.UtcNow.AddDays(1);
+                await _unitOfWork.SaveChangesAsync();
 
-                return ($"User Login Successfully {token} ");
+                return accessToken;
 
             }
 
@@ -64,6 +65,19 @@ namespace Application_Layer.Services.Implementation
             return "User registered successfully";
             }
             return "User already exists";
+        }
+
+        public async Task<string> LogoutAsync(string identifier)
+        {
+            var user = await _unitOfWork.UserRepo.CheakDuplication(identifier);
+            if (user is null)
+            return "User not found";
+
+            user.RefreshToken = null;
+            user.RefreshTokenExpiry = null;
+            await _unitOfWork.SaveChangesAsync();
+
+            return "Logged out successfully";
         }
     }
 }

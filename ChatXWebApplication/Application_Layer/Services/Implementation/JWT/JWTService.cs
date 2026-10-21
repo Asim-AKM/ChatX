@@ -3,6 +3,7 @@ using ChatX.Application.DTOs.Request;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
+using System.Security.Cryptography;
 using System.Security.Claims;
 using System.Text;
 
@@ -38,13 +39,17 @@ namespace Application_Layer.Services.Implementation.JWT
                 issuer: issuer,
                 audience: Audiouns,
                 claims: claims,
+                expires: DateTime.UtcNow.AddMinutes(15),   
                 signingCredentials: encryptedtoken
                 );
 
 
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
-
+        public string CreateRefreshToken()
+        {
+            return Convert.ToBase64String(RandomNumberGenerator.GetBytes(64));
+        }
 
     }
 }
