@@ -24,7 +24,7 @@ namespace Infrastructure_Layer.Persistence.Migrations
 
             modelBuilder.Entity("Core_Layer.Entities.Conversation", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<Guid>("ConversationId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
@@ -40,7 +40,7 @@ namespace Infrastructure_Layer.Persistence.Migrations
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime2");
 
-                    b.HasKey("Id");
+                    b.HasKey("ConversationId");
 
                     b.ToTable("Conversations");
                 });
