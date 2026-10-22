@@ -15,6 +15,8 @@ namespace ChatXWebApp
             builder.Services.AddRazorComponents()
                 .AddInteractiveServerComponents();
 
+            builder.Services.AddHttpContextAccessor();
+
             builder.Services.AddInfrastructureServices(builder.Configuration)
                             .AddApplicationServices()
                             .AddAuthenticationServices();   // Cookie auth + Authorization + CascadingAuthenticationState
