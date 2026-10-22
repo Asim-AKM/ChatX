@@ -22,8 +22,8 @@ namespace Application_Layer.DI_Registration
             .AddScoped<IAuthService, AuthService>()
             .AddScoped<IUserServices, UserServices>()
             .AddScoped<IConversationService, ConversationService>()
-            .AddScoped<IConversationAccessGuard, ConversationAccessGuard>();
-            .AddScoped<IJWTService, JWTService>();
+            .AddScoped<IConversationAccessGuard, ConversationAccessGuard>()
+            .AddScoped<IJWTService, JWTService>()
             .AddScoped<ImageUpload>();
     }
 

@@ -13,7 +13,7 @@
 
     <div class="searchbox" style="max-width:620px">
         ⌖
-        <input id="userSearch" @bind-value="searchTerm" placeholder="Search by username or name..." />
+        <InputText id="userSearch" @bind-value="searchTerm" placeholder="Search by username or name..." />
         <button class="btn btn-primary" @onclick="() => GetSerchedUser(searchTerm)">Search</button>
     </div>
 
