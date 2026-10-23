@@ -14,6 +14,7 @@ namespace Core_Layer.InterfaceRepositories
         Task<User> ExistingUser(User user);
         Task<bool> IsActiveUserAsync(Guid userId);
         Task<User> GetUserByUserName(string identifier);
+        Task<List<User>> GetAllPublicUsers();
 
     }
 }

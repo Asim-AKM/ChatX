@@ -1,14 +1,9 @@
 ﻿using Core_Layer.Entities;
+using Core_Layer.Enums;
 using Core_Layer.InterfaceRepositories;
-using Core_Layer.InterfaceRepositories.IGenericRepo;
 using Infrastructure_Layer.Data.ApplicationDbContext;
 using Infrastructure_Layer.Persistence.ImplementationRepo.GenericRepo;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Infrastructure_Layer.Persistence.ImplementationRepo
 {
@@ -20,7 +15,7 @@ namespace Infrastructure_Layer.Persistence.ImplementationRepo
         {
             _context = context;
         }
-        public async Task<User>  CheakDuplication(string identifier)
+        public async Task<User> CheakDuplication(string identifier)
         {
             var existingUser = await _context.Users.FirstOrDefaultAsync(x => x.Email == identifier || x.UserName == identifier || x.Contact == identifier);
             return existingUser;
@@ -28,11 +23,11 @@ namespace Infrastructure_Layer.Persistence.ImplementationRepo
 
         public async Task<User> ExistingUser(User user)
         {
-    
-            var response = await _context.Users. FirstOrDefaultAsync(u => u.UserName == user.UserName|| u.Email == user.Email || u.Contact==user.Contact);
+
+            var response = await _context.Users.FirstOrDefaultAsync(u => u.UserName == user.UserName || u.Email == user.Email || u.Contact == user.Contact);
 
             return response!;
-        
+
         }
         public async Task<bool> IsActiveUserAsync(Guid userId)
         {
@@ -42,7 +37,18 @@ namespace Infrastructure_Layer.Persistence.ImplementationRepo
 
         public async Task<User> GetUserByUserName(string identifier)
         {
-            return await _context.Users.FirstOrDefaultAsync(x => x.UserName == identifier);
+            var user = await _context.Users.FirstOrDefaultAsync(x => x.UserName == identifier);
+            
+            if(user is not null)
+            {
+                return user;
+            }
+            return null;
+        }
+
+        public async Task<List<User>> GetAllPublicUsers()
+        {
+            return await _context.Users.Where(x=> x.Privacy == PrivacyType.Public).OrderBy(u => Guid.NewGuid()).Take(12).ToListAsync();
         }
     }
 }

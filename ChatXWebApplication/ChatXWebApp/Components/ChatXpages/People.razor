@@ -18,6 +18,10 @@
         <button class="btn btn-primary" @onclick="SearchUsersAsync">Search</button>
     </div>
 
+    <button class="btn btn-outline-primary" @onclick="LoadUsers">
+        <i class="bi bi-arrow-clockwise me-1"></i>
+    </button>
+
     <div class="sectionhead">
         <h2>Suggested people</h2>
         <span class="muted" id="userCount">@FilteredUsers.Count people</span>
@@ -82,7 +86,8 @@
 </section>
 
 @code {
-    [Inject] private IUserServices _userServices { get; set; } = default!;
+    [Inject]
+    private IUserServices _userServices { get; set; } = default!;
 
     private List<UserDataResponse> _users = new();
     private string searchTerm = "";
@@ -126,6 +131,12 @@
     private async Task GetSerchedUser(string identifier)
     {
         if (string.IsNullOrWhiteSpace(identifier))
+        {
+            await LoadUsers();
+            return;
+        }
+
+        if(searchTerm == null || searchTerm.Trim() == "")
         {
             await LoadUsers();
             return;
