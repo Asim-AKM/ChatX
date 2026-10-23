@@ -17,11 +17,11 @@ namespace Application_Layer.Services.Implementation
         private IJWTService _jWTService;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IPasswordService _passwordService;
-        public AuthService(IUnitOfWork unitOfWork, IPasswordService passwordService,IJWTService jWTService)
+        public AuthService(IUnitOfWork unitOfWork, IPasswordService passwordService, IJWTService jWTService)
         {
             _unitOfWork = unitOfWork;
             _passwordService = passwordService;
-            _jWTService= jWTService;
+            _jWTService = jWTService;
         }
 
         //public async Task<string> LoginUserAsync(LoginUserRequest request)
@@ -72,16 +72,31 @@ namespace Application_Layer.Services.Implementation
 
             if (existingUser == null)
             {
-            var user = request.Map();
-                
-            user.PasswordHash = _passwordService.HashPassword(request.Password);
+                var username = UsernameGenerator(request.FirstName, request.LastName);
+                var displayname = DisplayName(request.FirstName, request.LastName);
+                var user = request.Map(displayname,username);
 
-            await _unitOfWork.UserRepo.CreateAsync(user);
-            await _unitOfWork.SaveChangesAsync();
+                user.PasswordHash = _passwordService.HashPassword(request.Password);
 
-            return "User registered successfully";
+                await _unitOfWork.UserRepo.CreateAsync(user);
+                await _unitOfWork.SaveChangesAsync();
+
+                return "User registered successfully";
             }
             return "User already exists";
+
         }
+        private string UsernameGenerator(string firstname, string lastname)
+        {
+            string username = $"{firstname.Trim()}{lastname.Trim()}".ToLowerInvariant().Replace(" ", "");
+            return $"{username}{Random.Shared.Next(1000, 9999)}";
+        }
+
+        private string DisplayName(string firstname, string lastname)
+        {
+            return $"{firstname.Trim()} {lastname.Trim()}".Trim();
+        }
+
+
     }
 }

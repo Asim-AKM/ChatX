@@ -8,7 +8,7 @@ public class RegisterUserValidator : AbstractValidator<RegisterUserRequest>
 {
     public RegisterUserValidator()
     {
-        RuleFor(x => x.UserName)
+        RuleFor(x => x.FirstName)
             .NotEmpty()
             .WithMessage("Username is required.")
             .MinimumLength(3)
