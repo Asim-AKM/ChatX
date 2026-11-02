@@ -68,11 +68,11 @@ namespace Application_Layer.Services.Implementation
 
         public async Task<string> RegisterUserAsync(RegisterUserRequest request)
         {
-            var user = request.Map();
-            var existingUser = await _unitOfWork.UserRepo.ExistingUser(user);
+            var existingUser = await _unitOfWork.UserRepo.ExistingUser(request.Email);
 
             if (existingUser == null)
             {
+            var user = request.Map();
                 
             user.PasswordHash = _passwordService.HashPassword(request.Password);
 

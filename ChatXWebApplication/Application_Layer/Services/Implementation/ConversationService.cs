@@ -72,13 +72,13 @@ public class ConversationService : IConversationService
     new ConversationParticipant
     {
         UserId = currentUser.UserId,
-        UserName = currentUser.UserName,
+        DisplayName = currentUser.UserName,
         ProfileImageUrl = currentUser.ProfileImageUrl
     },
     new ConversationParticipant
     {
         UserId = participant.UserId,
-        UserName = participant.UserName,
+        DisplayName = participant.UserName,
         ProfileImageUrl = participant.ProfileImageUrl
     }
 };
@@ -109,7 +109,7 @@ public class ConversationService : IConversationService
             new ConversationParticipant
             {
                 UserId = other.UserId,
-                UserName = other.UserName,
+                DisplayName = other.UserName,
                 ProfileImageUrl = other.ProfileImageUrl
             }
         },

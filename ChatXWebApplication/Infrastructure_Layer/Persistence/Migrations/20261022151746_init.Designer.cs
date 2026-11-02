@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure_Layer.Persistence.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20261013143215_AddedEntities")]
-    partial class AddedEntities
+    [Migration("20261022151746_init")]
+    partial class init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -27,7 +27,7 @@ namespace Infrastructure_Layer.Persistence.Migrations
 
             modelBuilder.Entity("Core_Layer.Entities.Conversation", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<Guid>("ConversationId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
@@ -43,7 +43,7 @@ namespace Infrastructure_Layer.Persistence.Migrations
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime2");
 
-                    b.HasKey("Id");
+                    b.HasKey("ConversationId");
 
                     b.ToTable("Conversations");
                 });
@@ -162,8 +162,14 @@ namespace Infrastructure_Layer.Persistence.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<string>("Contact")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("DisplayName")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");

@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Infrastructure_Layer.Persistence.Migrations
 {
     /// <inheritdoc />
-    public partial class AddedEntities : Migration
+    public partial class init : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -30,7 +30,7 @@ namespace Infrastructure_Layer.Persistence.Migrations
                 name: "Conversations",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    ConversationId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
                     LastMessageAt = table.Column<DateTime>(type: "datetime2", nullable: true),
@@ -38,7 +38,7 @@ namespace Infrastructure_Layer.Persistence.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Conversations", x => x.Id);
+                    table.PrimaryKey("PK_Conversations", x => x.ConversationId);
                 });
 
             migrationBuilder.CreateTable(
@@ -109,8 +109,10 @@ namespace Infrastructure_Layer.Persistence.Migrations
                 columns: table => new
                 {
                     UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    DisplayName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UserName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Contact = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     PasswordHash = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ProfileImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     IsActive = table.Column<bool>(type: "bit", nullable: false),
