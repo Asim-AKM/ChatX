@@ -8,5 +8,6 @@ namespace Application_Layer.Services.Interfaces
     {
         public  Task<ConversationResponse> StartConversationAsync(Guid currentUserId, ConversationRequest request);
         Task<ConversationResponse> GetConversationByIdAsync(Guid currentUserId, Guid conversationId);
+        Task<PagedResult<ConversationResponse>> GetConversationsAsync(Guid currentUserId, GetConversationsRequest request);
     }
 }

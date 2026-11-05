@@ -12,5 +12,13 @@ namespace Application_Layer.Validators
                     .WithMessage("Participant ID is required.");
             }
         }
+    public  class GetConversationsRequestValidator : AbstractValidator<GetConversationsRequest>
+    {
+        public  GetConversationsRequestValidator()
+        {
+            RuleFor(x => x.PageNumber).GreaterThanOrEqualTo(1);
+            RuleFor(x => x.PageSize).InclusiveBetween(1, 50);
+        }
     }
+}
 
