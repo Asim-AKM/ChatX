@@ -11,14 +11,14 @@ namespace Application_Layer.Mappers
 {
     public static class MapToUser
     {
-        public static User Map(this RegisterUserRequest Request)
+        public static User Map(this RegisterUserRequest Request,string Name,string UserName)
         {
             return new User
             {
                 UserId = Guid.NewGuid(),
-                UserName = Request.UserName,
+                DisplayName = Name,
+                UserName = UserName,
                 Email = Request.Email,
-                Contact = Request.Contact,
                 PasswordHash = Request.Password,
                 CreatedAt = DateTime.Now,
 
