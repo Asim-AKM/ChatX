@@ -15,6 +15,12 @@ namespace Application_Layer.Services.Implementation
         public async Task<UserDataResponse> GetUserByUserName(string Identifier)
         {
             var user = await _unitOfWork.UserRepo.GetUserByUserName(Identifier);
+
+            if (user == null)
+            {
+                return null;
+            }
+
             return new UserDataResponse()
             {
                 UserID = user.UserId,
@@ -27,7 +33,7 @@ namespace Application_Layer.Services.Implementation
 
         public async Task<List<UserDataResponse>> GetUsersAsync()
         {
-            var user = await _unitOfWork.UserRepo.GetAllAsync();
+            var user = await _unitOfWork.UserRepo.GetAllPublicUsers();
 
             List<UserDataResponse> users = new List<UserDataResponse>();
 

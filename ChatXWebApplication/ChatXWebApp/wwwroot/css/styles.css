@@ -2294,3 +2294,53 @@ body:not(.motion-disabled) .notification {
         transition-duration: .01ms !important;
     }
 }
+
+
+/* Privacy Settings Dropdown */
+.privacy-dropdown {
+    width: 150px;
+    flex-shrink: 0;
+    padding: 9px 34px 9px 12px;
+    background-color: var(--panel, #fff);
+    color: var(--ink, #334155);
+    border: 1px solid var(--line, #dbe3ef);
+    border-radius: 10px;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: border-color .2s ease, box-shadow .2s ease, background-color .2s ease;
+}
+
+.privacy-dropdown:hover {
+    border-color: var(--blue, #6366f1);
+}
+
+.privacy-dropdown:focus {
+    border-color: var(--blue, #6366f1);
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, .12);
+    outline: none;
+}
+
+.privacy-dropdown option {
+    background-color: #fff;
+    color: #334155;
+}
+
+/* Dark theme support */
+body[data-theme="dark"] .privacy-dropdown {
+    background-color: var(--panel);
+    color: var(--ink);
+    border-color: var(--line);
+}
+
+    body[data-theme="dark"] .privacy-dropdown option {
+        background-color: #fff;
+        color: #334155;
+    }
+
+@media (max-width: 576px) {
+    .privacy-dropdown {
+        width: 125px;
+        font-size: 12px;
+    }
+}
