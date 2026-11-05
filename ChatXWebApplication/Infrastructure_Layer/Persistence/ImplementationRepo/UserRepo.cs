@@ -23,22 +23,12 @@ namespace Infrastructure_Layer.Persistence.ImplementationRepo
 
         public async Task<User> ExistingUser(string user)
         {
-<<<<<<< HEAD
-
-            var response = await _context.Users.FirstOrDefaultAsync(u => u.UserName == user.UserName || u.Email == user.Email || u.Contact == user.Contact);
-
-            return response!;
-
-=======
-    
-            var response = await _context.Users. FirstOrDefaultAsync(u => u.Email == user );
+            var response = await _context.Users.FirstOrDefaultAsync(u => u.Email == user);
             if (response is not null)
             {
                 return response;
             }
             return null;
-        
->>>>>>> main
         }
         public async Task<bool> IsActiveUserAsync(Guid userId)
         {
@@ -49,8 +39,8 @@ namespace Infrastructure_Layer.Persistence.ImplementationRepo
         public async Task<User> GetUserByUserName(string identifier)
         {
             var user = await _context.Users.FirstOrDefaultAsync(x => x.UserName == identifier);
-            
-            if(user is not null)
+
+            if (user is not null)
             {
                 return user;
             }
@@ -59,7 +49,7 @@ namespace Infrastructure_Layer.Persistence.ImplementationRepo
 
         public async Task<List<User>> GetAllPublicUsers()
         {
-            return await _context.Users.Where(x=> x.Privacy == PrivacyType.Public).OrderBy(u => Guid.NewGuid()).Take(12).ToListAsync();
+            return await _context.Users.Where(x => x.Privacy == PrivacyType.Public).OrderBy(u => Guid.NewGuid()).Take(12).ToListAsync();
         }
     }
 }
