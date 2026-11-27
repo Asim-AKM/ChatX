@@ -1,5 +1,6 @@
 ﻿
 using Core_Layer.Entities;
+using Core_Layer.Entities.Model;
 
 namespace Core_Layer.InterfaceRepositories
 {
@@ -11,6 +12,7 @@ namespace Core_Layer.InterfaceRepositories
         Task<Conversation?> GetConversationByIdAsync(Guid conversationId);
         
        Task<User?> GetOtherParticipantAsync(Guid conversationId, Guid currentUserId);
+        Task<(List<ConversationSummary> Items, int TotalCount)> GetUserConversationsAsync(Guid userId, int pageNumber, int pageSize);
 
 
 

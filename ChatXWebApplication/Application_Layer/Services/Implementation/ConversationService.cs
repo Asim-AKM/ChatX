@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿
 using Application_Layer.Common;
 using Application_Layer.Conversation;
 using Application_Layer.DTO_s.Request;
@@ -20,14 +18,16 @@ public class ConversationService : IConversationService
 
     private readonly IUnitOfWork _uow;
     private readonly IValidator<ConversationRequest> _validator;
+    private readonly IValidator<GetConversationsRequest> _validator2;
     private readonly IConversationAccessGuard _guard;
 
-    public ConversationService(IConversationRepo conversations, IUnitOfWork uow, IValidator<ConversationRequest> validator, IConversationAccessGuard guard)
+    public ConversationService(IConversationRepo conversations, IUnitOfWork uow, IValidator<ConversationRequest> validator, IConversationAccessGuard guard, IValidator<GetConversationsRequest> validator2)
     {
 
         _uow = uow;
         _validator = validator;
         _guard = guard;
+        _validator2 = validator2;
     }
 
 
@@ -120,6 +120,43 @@ public class ConversationService : IConversationService
 
 
     }
+
+    public async Task<PagedResult<ConversationResponse>> GetConversationsAsync(
+    Guid currentUserId, GetConversationsRequest request)
+    {
+        await _validator2.ValidateAndThrowAsync(request);
+
+        if (currentUserId == Guid.Empty)
+            throw new InvalidOperationException("Invalid user.");
+
+        var (items, totalCount) = await _uow.ConversationRepo
+            .GetUserConversationsAsync(currentUserId, request.PageNumber, request.PageSize);
+
+        var mapped = items.Select(x => new ConversationResponse
+        {
+            ConversationId = x.ConversationId,
+            CreatedAt = x.CreatedAt,
+            LastMessageAt = x.LastMessageAt,
+            Participants = new List<ConversationParticipant>
+        {
+            new ConversationParticipant
+            {
+                UserId = x.OtherUserId,
+                DisplayName = x.OtherUserName,
+                ProfileImageUrl = x.OtherUserProfileImageUrl
+            }
+        }
+        }).ToList();
+
+        return new PagedResult<ConversationResponse>
+        {
+            Items = mapped,
+            TotalCount = totalCount,
+            PageNumber = request.PageNumber,
+            PageSize = request.PageSize
+        };
+    }
 }
+
 
 

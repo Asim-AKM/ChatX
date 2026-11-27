@@ -1,5 +1,6 @@
 ﻿
 using Core_Layer.Entities;
+using Core_Layer.Entities.Model;
 using Core_Layer.InterfaceRepositories;
 using Infrastructure_Layer.Data.ApplicationDbContext;
 using Infrastructure_Layer.Persistence.ImplementationRepo.GenericRepo;
@@ -64,6 +65,38 @@ namespace Infrastructure_Layer.Persistence.ImplementationRepo
         public async Task<Conversation?> GetConversationByIdAsync(Guid conversationId)
         {
             return await _db.Conversations.FirstOrDefaultAsync(c => c.ConversationId == conversationId && c.IsActive);
+        }
+
+        public async Task<(List<ConversationSummary> Items, int TotalCount)> GetUserConversationsAsync( Guid userId, int pageNumber, int pageSize)
+        {
+            var query =
+                from mine in _db.ConversationMembers
+                join c in _db.Conversations on mine.ConversationId equals c.ConversationId
+                join other in _db.ConversationMembers on c.ConversationId equals other.ConversationId
+                join u in _db.Users on other.UserId equals u.UserId
+                where mine.UserId == userId && mine.IsActive && c.IsActive
+                      && other.UserId != userId && other.IsActive
+                select new ConversationSummary
+                {
+                    ConversationId = c.ConversationId,
+                    CreatedAt = c.CreatedAt,
+                    LastMessageAt = c.LastMessageAt,
+                    OtherUserId = u.UserId,
+                    OtherUserName = u.UserName,
+                    OtherUserProfileImageUrl = u.ProfileImageUrl
+                };
+
+            var totalCount = await query.CountAsync();
+
+            var items = await query
+                .OrderByDescending(x => x.LastMessageAt ?? x.CreatedAt)
+                .ThenByDescending(x => x.ConversationId)
+                .Skip((pageNumber - 1) * pageSize)
+                .Take(pageSize)
+                .AsNoTracking()
+                .ToListAsync();
+
+            return (items, totalCount);
         }
     }
 }
