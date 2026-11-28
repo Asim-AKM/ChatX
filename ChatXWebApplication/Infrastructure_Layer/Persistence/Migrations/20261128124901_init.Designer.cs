@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure_Layer.Persistence.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20261022151746_init")]
+    [Migration("20261128124901_init")]
     partial class init
     {
         /// <inheritdoc />
@@ -182,6 +182,9 @@ namespace Infrastructure_Layer.Persistence.Migrations
 
                     b.Property<string>("PasswordHash")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Privacy")
+                        .HasColumnType("int");
 
                     b.Property<string>("ProfileImageUrl")
                         .HasColumnType("nvarchar(max)");
